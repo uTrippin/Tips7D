@@ -2,7 +2,9 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseUpdater {
 	public static void main(String[] argv) {
@@ -48,7 +50,37 @@ public class DatabaseUpdater {
 		} else {
 			System.out.println("Failed to make connection!");
 		}
-		
+		/*Statement stmt = null;
+		try{
+			stmt = connection.createStatement();
+		      
+		      String sql = "CREATE TABLE TEST " +
+		                   "(id INTEGER not NULL, " +
+		                   " tester VARCHAR(255))"; 
+
+		      stmt.executeUpdate(sql);
+		      System.out.println("Created table in given database...");
+		   }catch(SQLException se){
+		      //Handle errors for JDBC
+		      se.printStackTrace();
+		}*/
+		String insertTableSQL = "INSERT INTO TEST"
+				+ "(id, tester) VALUES"
+				+ "(?,?)";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(insertTableSQL);
+			preparedStatement.setInt(1, 100);
+			preparedStatement.setString(2, "KariKul");
+			// execute insert SQL stetement
+			preparedStatement .executeUpdate();
+			System.out.print("Awwww yeeeeaaaaaaaah");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 	}
+	//connection.close();
 }

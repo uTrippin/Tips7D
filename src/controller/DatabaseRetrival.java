@@ -1,5 +1,7 @@
 package controller;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -47,6 +49,24 @@ public class DatabaseRetrival {
 		} else {
 			System.out.println("Failed to make connection!");
 		}
+		
+		String selectSQL = "SELECT id, tester FROM TEST WHERE id = ?";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, 100);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				String userid = rs.getString("id");
+				String username = rs.getString("tester");
+				System.out.print(userid);
+				System.out.print(username);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 		
 	}
