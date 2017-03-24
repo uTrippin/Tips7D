@@ -59,8 +59,8 @@ public class DatabaseRetrival {
 			while (rs.next()) {
 				String userid = rs.getString("id");
 				String username = rs.getString("tester");
-				System.out.print(userid);
-				System.out.print(username);
+				System.out.println(userid);
+				System.out.println(username);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
