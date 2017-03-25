@@ -1,10 +1,11 @@
 package controller;
 
+import model.Trip;
+
 public class SearchController {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public Trip[] findResults(String[] searchParam) {
+		
 	}
 
 }
