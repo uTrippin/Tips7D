@@ -54,7 +54,6 @@ public class DatabaseUpdater {
 	
 	public static void main(String[] argv) {
 		
-		
 		/*String insertTableSQL = "INSERT INTO TEST"
 				+ "(id, tester) VALUES"
 				+ "(?,?)";
@@ -74,7 +73,7 @@ public class DatabaseUpdater {
 		
 	}
 	
-	private void createTables(){
+	public void createTables(){
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
@@ -85,14 +84,28 @@ public class DatabaseUpdater {
 		                   " dateBegin DATE NOT NULL, " +
 		                   " dateEnd DATE NOT NULL, " +
 		                   " description VARCHAR(2000), " +
-		                   " maxPeople INT NOT NULL UNSIGNED, " +
-		                   " minPeople INT NOT NULL UNSIGNED, " +
+		                   " maxPeople INT NOT NULL, " +
+		                   " minPeople INT NOT NULL, " +
 		                   " location VARCHAR(256) NOT NULL, " +
 		                   " price INT NOT NULL)";
 		                   
-
 		      stmt.executeUpdate(sql1);
-		      System.out.println("Created table in given database...");
+		      
+		      String sql2 = "CREATE TABLE ADMIN " +
+	                   "(adminId VARCHAR(256) NOT NULL, " +
+	                   " adminPassword VARCHAR(256) NOT NUll)";
+		      
+		      stmt.executeUpdate(sql2);
+		      
+		      String sql3 = "CREATE TABLE BOOKING " +
+	                   "(bookingId VARCHAR(256) NOT NULL, " +
+	                   " tripId VARCHAR(256) NOT NUll, " +
+	                   "bookerEmail VARCHAR(256) NOT NULL, " + 
+	                   "numPeople INT NOT NULL, " +
+	                   "bookerSSN INT NOT NULL)";
+		      
+		      stmt.executeUpdate(sql3);
+		      
 		   }catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();

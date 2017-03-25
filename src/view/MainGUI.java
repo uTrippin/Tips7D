@@ -22,7 +22,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JToolBar;
 import java.awt.Button;
+<<<<<<< HEAD
 import javax.swing.JTextField;
+=======
+import javax.swing.JTabbedPane;
+>>>>>>> 1a6f6580e248e28910eb7aa0b69a262993744f9b
 
 public class MainGUI extends JFrame {
 
