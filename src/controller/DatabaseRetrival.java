@@ -13,6 +13,7 @@ import model.Trip;
 public class DatabaseRetrival {
 	private Connection connection = null; //Database connection
 	
+	//Constructor for the DatabaseRetrival
 	public DatabaseRetrival(){
 		//Connect to the postgresql driver
 		try {
@@ -48,7 +49,7 @@ public class DatabaseRetrival {
 		}
 	}
 	
-	//Function for querying the database
+	//Querying the TRIP table
 	public Trip[] queryTrip(SearchModel search){
 		Trip [] tripList;
 		
@@ -85,9 +86,9 @@ public class DatabaseRetrival {
 			    n = rs.getRow();
 			}
 		} catch(SQLException e){
-			
+			e.printStackTrace();
 		}	
-		//Create a list of Trip objects
+		//Create a list of Trip objects of the correct size
 		Trip[] tripList = new Trip[n];
 		
 		try{
@@ -180,19 +181,35 @@ public class DatabaseRetrival {
 				int numPeople = rs.getInt("numPeople");
 				int bookerSSN = rs.getInt("bookerSSN");
 				bookingList[i] = new BookingModel(bookingId, tripId, bookerEmail, numPeople, bookerSSN);
-				
 			}
 			
 			return bookingList;
 		} catch (SQLException e){
-			bookingList = new BookingModel[n];
+			bookingList = new BookingModel[0];
 			return bookingList;
 		}
 	}
 	
 	//Queries ADMIN table to get info about admin
-	public void queryAdmin(SearchModel search){
+	public String queryAdmin(String adminId){
+		String pw = "";
+		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, adminId);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				pw = rs.getString("adminPassword");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		return pw;
 	}
 	
 	//test function

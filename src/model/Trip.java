@@ -26,45 +26,41 @@ public class Trip {
 		this.tripId = tripId;
 	}
 	
-	// GET
-	
-	private String getTripName() {
+	public String getTripName() {
 		return tripName;
 	}
 	
-	private Date getDateBegin() {
+	public Date getDateBegin() {
 		return dateBegin;
 	}
 	
-	private Date getDateEnd() {
+	public Date getDateEnd() {
 		return dateEnd;
 	}
 	
-	private String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 	
-	private int getMaxPeople() {
+	public int getMaxPeople() {
 		return maxPeople;
 	}
 	
-	private int getMinPeople() {
+	public int getMinPeople() {
 		return minPeople;
 	}
 	
-	private String getLocation() {
+	public String getLocation() {
 		return location;
 	}
 	
-	private int getPrice() {
+	public int getPrice() {
 		return price;
 	}
 	
-	private String getTripId() {
+	public String getTripId() {
 		return tripId;
 	}
-	
-	// SET
 	
 	private void setTripNme(String tripName) {
 		this.tripName = tripName;
