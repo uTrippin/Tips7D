@@ -11,10 +11,10 @@ public class SearchController {
 
 	DatabaseRetrival dbRetrival = new DatabaseRetrival();
 
-	public Trip[] findResults(String[] searchParam) {
+	public Trip[] findResults(String[] searchParam) throws ParseException {
 		
 		SearchModel search = createSearchModelObject(searchParam);
-				 
+	
 		Trip[] tripList = dbRetrival.queryTrip(search);
 	
 		return tripList;
@@ -73,5 +73,24 @@ public class SearchController {
 		SearchModel search = new SearchModel(tripName, dateBegin, dateEnd, location, price);
 		
 		return search;
+	}
+	
+	
+	public static void main(String args[]) {
+		DatabaseRetrival dbRetrival = new DatabaseRetrival();
+		
+		String[] param = {"", "10/01/16", "11/01/16", "", "1500"};
+		
+		SearchController test = new SearchController();
+		
+		try {
+			 Trip[] trips = test.findResults(param);
+			 
+			 for(int i=0; i < trips.length; i++) {
+				System.out.println(trips[i]);
+			}			 
+		} catch(Exception e) {
+			// do nothing
+		}
 	}
 }
