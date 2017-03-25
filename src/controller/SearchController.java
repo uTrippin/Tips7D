@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import model.SearchModel;
@@ -20,7 +21,7 @@ public class SearchController {
 	}
 	
 	
-	public SearchModel createSearchModelObject(String[] searchParam) {
+	public SearchModel createSearchModelObject(String[] searchParam) throws ParseException {
 		String tripName;
 		Date dateBegin;
 		Date dateEnd;
