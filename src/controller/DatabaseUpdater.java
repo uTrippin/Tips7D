@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseUpdater {
-	public static void main(String[] argv) {
-
+	private Connection connection = null;
+	private String URL = "jdbc:postgresql://kuldbinstance.czsqr6wtrtap.us-west-2.rds.amazonaws.com:5432/kuldb";
+	private String USER = "kuluser";
+	private String PASS = "kulpassword";
+	
+	public DatabaseUpdater(){
 		System.out.println("-------- PostgreSQL "
 				+ "JDBC Connection Testing ------------");
 
@@ -27,11 +31,7 @@ public class DatabaseUpdater {
 
 		System.out.println("PostgreSQL JDBC Driver Registered!");
 
-		Connection connection = null;
-		
-		String URL = "jdbc:postgresql://kuldbinstance.czsqr6wtrtap.us-west-2.rds.amazonaws.com:5432/kuldb";
-		String USER = "kuluser";
-		String PASS = "kulpassword";
+
 		
 		try {
 
@@ -50,21 +50,12 @@ public class DatabaseUpdater {
 		} else {
 			System.out.println("Failed to make connection!");
 		}
-		/*Statement stmt = null;
-		try{
-			stmt = connection.createStatement();
-		      
-		      String sql = "CREATE TABLE TEST " +
-		                   "(id INTEGER not NULL, " +
-		                   " tester VARCHAR(255))"; 
-
-		      stmt.executeUpdate(sql);
-		      System.out.println("Created table in given database...");
-		   }catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		}*/
-		String insertTableSQL = "INSERT INTO TEST"
+	}
+	
+	public static void main(String[] argv) {
+		
+		
+		/*String insertTableSQL = "INSERT INTO TEST"
 				+ "(id, tester) VALUES"
 				+ "(?,?)";
 		PreparedStatement preparedStatement;
@@ -78,9 +69,33 @@ public class DatabaseUpdater {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		
 	}
-	//connection.close();
+	
+	private void createTables(){
+		Statement stmt = null;
+		try{
+			stmt = connection.createStatement();
+		      
+		      String sql1 = "CREATE TABLE TRIP " +
+		                   "(tripId VARCHAR(256) NOT NULL, " +
+		                   " tripName VARCHAR(256) NOT NUll, " +
+		                   " dateBegin DATE NOT NULL, " +
+		                   " dateEnd DATE NOT NULL, " +
+		                   " description VARCHAR(2000), " +
+		                   " maxPeople INT NOT NULL UNSIGNED, " +
+		                   " minPeople INT NOT NULL UNSIGNED, " +
+		                   " location VARCHAR(256) NOT NULL, " +
+		                   " price INT NOT NULL)";
+		                   
+
+		      stmt.executeUpdate(sql1);
+		      System.out.println("Created table in given database...");
+		   }catch(SQLException se){
+		      //Handle errors for JDBC
+		      se.printStackTrace();
+		}
+	}
 }

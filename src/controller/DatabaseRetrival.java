@@ -11,10 +11,9 @@ import model.SearchModel;
 import model.Trip;
 
 public class DatabaseRetrival {
+	private Connection connection = null; //Database connection
 	
-	private static Connection connection = null; //Database connection
-	
-	public static void main(String[] argv) {
+	public DatabaseRetrival(){
 		//Connect to the postgresql driver
 		try {
 
@@ -47,24 +46,17 @@ public class DatabaseRetrival {
 		} else {
 			System.out.println("Failed to make connection!");
 		}
-		
-		//query();
-		
 	}
 	
 	//Function for querying the database
-	public static Trip[] queryTrip(SearchModel search){
+	public Trip[] queryTrip(SearchModel search){
 		Trip [] tripList;
-		//tripName
-		//dateBegin
-		//dateEnd
-		//location
-		//price
 		
-		String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin = ? AND dateEnd = ? AND location = ?"
-				+ "AND price = ?";
-		PreparedStatement preparedStatement;
-		try {
+		try{		
+			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin = ? AND dateEnd = ? AND location = ?"
+					+ "AND price = ?";
+			PreparedStatement preparedStatement;
+
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, search.getTripName());
 			preparedStatement.setDate(2, (Date) search.getDateBegin());
@@ -80,41 +72,47 @@ public class DatabaseRetrival {
 			tripList = new Trip[0];
 		}
 		
-		return tripList;
-		
+		return tripList;	
 	}
 	
-	private static Trip[] createTriplist(ResultSet rs){
-		//Get the length of the results set
-		boolean b = rs.last();
+	private Trip[] createTriplist(ResultSet rs){
 		int n = 0;
-		if(b){
-		    n = rs.getRow();
-		}
-		
+		try{
+			//Get the length of the results set
+			boolean b = rs.last();
+			if(b){
+			    n = rs.getRow();
+			}
+		} catch(SQLException e){
+			
+		}	
 		//Create a list of Trip objects
 		Trip[] tripList = new Trip[n];
 		
-		int i = 0;
-		while (rs.next()) {
-			String tripName = rs.getString("tripName");
-			Date dateBegins = rs.getDate("dateBegin");
-			Date dateEnds = rs.getDate("dateEnd");
-			String desc = rs.getString("description");
-			int maxPeople = rs.getInt("maxPeople");
-			int minPeople = rs.getInt("minPeople");
-			String location = rs.getString("location");
-			int price = rs.getInt("price");
-			String tripId = rs.getString("tripId");
-			
-			tripList[i] = new Trip(tripName, dateBegins, dateEnds, description, maxPeople, minPeople, location, price, tripId);
-			
-		}
+		try{
+			int i = 0;
+			while (rs.next()) {
+				String tripName = rs.getString("tripName");
+				Date dateBegins = rs.getDate("dateBegin");
+				Date dateEnds = rs.getDate("dateEnd");
+				String desc = rs.getString("description");
+				int maxPeople = rs.getInt("maxPeople");
+				int minPeople = rs.getInt("minPeople");
+				String location = rs.getString("location");
+				int price = rs.getInt("price");
+				String tripId = rs.getString("tripId");
+				
+				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId);
+			}
+		} catch(SQLException e){
+				
+			}
 		
 		return tripList;
 	}
 	
-	public static BookingModel[] queryPersonBooking(String email){
+	//Queries BOOKING table to get info about a person
+	public BookingModel[] queryPersonBooking(String email){
 		BookingModel [] bookingList;
 		
 		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
@@ -134,7 +132,8 @@ public class DatabaseRetrival {
 		return bookingList;
 	}
 	
-	public static BookingModel[] queryTripBooking(String tripId){
+	//Queries the BOOKING table to get info about a trip
+	public BookingModel[] queryTripBooking(String tripId){
 		BookingModel [] bookingList;
 		
 		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
@@ -154,7 +153,8 @@ public class DatabaseRetrival {
 		return bookingList;
 	}
 	
-	private static BookingModel[] createBookinglist(ResultSet rs){
+	//Creates a list of BookingModel objects 
+	private BookingModel[] createBookinglist(ResultSet rs){
 		//Get the length of the results set
 		boolean b = rs.last();
 		int n = 0;
@@ -167,19 +167,19 @@ public class DatabaseRetrival {
 		
 		int i = 0;
 		while (rs.next()) {
-			String tripName = rs.getString("tripName");
-			Date dateBegins = rs.getDate("dateBegin");
-			Date dateEnds = rs.getDate("dateEnd");
-			String location = rs.getString("location");
-			int price = rs.getInt("price");
-			bookingList[i] = new BookingModel(tripName, dateBegins, dateEnds, location, price);
+			String bookingId = rs.getString("bookingId");
+			String tripId = rs.getString("tripId");
+			String bookerEmail = rs.getString("bookerEmail");
+			int numPeople = rs.getInt("numPeople");
+			int bookerSSN = rs.getInt("bookerSSN");
+			bookingList[i] = new BookingModel(bookingId, tripId, bookerEmail, numPeople, bookerSSN);
 			
 		}
 		
 		return bookingList;
 	}
 	
-	public static void queryAdmin(SearchModel search){
+	public void queryAdmin(SearchModel search){
 		
 	}
 
