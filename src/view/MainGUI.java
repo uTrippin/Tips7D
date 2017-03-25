@@ -100,26 +100,33 @@ public class MainGUI extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
-		Button btnTbSearch = new Button("Search");
-		btnTbSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		toolBar.add(btnTbSearch);
-		
 		Button btnTbAdmin = new Button("Admin");
 		btnTbAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		toolBar.add(btnTbAdmin);
 		
-		Button btnTbMain = new Button("Main");
-		btnTbMain.addActionListener(new ActionListener() {
+		Button btnTbTrips = new Button("Trip");
+		btnTbTrips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		toolBar.add(btnTbMain);
+		toolBar.add(btnTbTrips);
+		toolBar.add(btnTbAdmin);
+		
+		Button btnTbSearch = new Button("Search");
+		btnTbSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+			}
+		});
+		btnTbSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		toolBar.add(btnTbSearch);
 	}
 	
 	
