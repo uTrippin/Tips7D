@@ -7,14 +7,12 @@ import model.SearchModel;
 import model.Trip;
 
 public class SearchController {
-	
-	DatabaseRetrival dbRetrival = new DatabaseRetrival();
 
 	public Trip[] findResults(String[] searchParam) {
 		
 		SearchModel search = createSearchModelObject(searchParam);
 				 
-		Trip[] tripList = dbRetrival.queryTrip(search);
+		Trip[] tripList = DatabaseRetrival.queryTrip(search);
 	
 		return tripList;
 	}
