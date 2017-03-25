@@ -58,7 +58,8 @@ public class DatabaseRetrival {
 					+ "AND price = ?";
 			PreparedStatement preparedStatement;
 
-			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setString(1, search.getTripName());
 			preparedStatement.setDate(2, (Date) search.getDateBegin());
 			preparedStatement.setDate(3, (Date) search.getDateEnd());
@@ -66,6 +67,8 @@ public class DatabaseRetrival {
 			preparedStatement.setInt(5, search.getPrice());
 			ResultSet rs = preparedStatement.executeQuery();
 			tripList = createTriplist(rs);
+			
+			System.out.print("did it");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

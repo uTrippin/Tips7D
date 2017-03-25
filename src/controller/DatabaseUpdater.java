@@ -1,12 +1,14 @@
 package controller;
 import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.BookingModel;
+import model.Trip;
 
 public class DatabaseUpdater {
 	private Connection connection = null;
@@ -77,6 +79,32 @@ public class DatabaseUpdater {
 			e.printStackTrace();
 		}
 	}
+	
+	//Function that adds a booking to the table BOOKINGS
+		public void insertTrip(Trip trip){
+			String insertTableSQL = "INSERT INTO TRIP"
+					+ "(tripId, tripName, dateBegin, dateEnd, description, maxPeople, minPeople, location, price) VALUES"
+					+ "(?,?,?,?,?,?,?,?,?)";
+			PreparedStatement preparedStatement;
+			try {
+				preparedStatement = connection.prepareStatement(insertTableSQL);
+				preparedStatement.setString(1, trip.getTripId());
+				preparedStatement.setString(2, trip.getTripName());
+				preparedStatement.setDate(3, (Date) trip.getDateBegin());
+				preparedStatement.setDate(4, (Date) trip.getDateEnd());
+				preparedStatement.setString(5, trip.getDescription());
+				preparedStatement.setInt(6, trip.getMaxPeople());
+				preparedStatement.setInt(7, trip.getMinPeople());
+				preparedStatement.setString(8, trip.getLocation());
+				preparedStatement.setInt(9, trip.getPrice());
+				//execute insert SQL statement
+				preparedStatement .executeUpdate();
+				System.out.print("Awwww yeeeeaaaaaaaah");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	
 	public void createTables(){
 		Statement stmt = null;
