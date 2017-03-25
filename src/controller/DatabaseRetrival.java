@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 
+import model.BookingModel;
 import model.SearchModel;
 import model.Trip;
 
@@ -53,7 +54,6 @@ public class DatabaseRetrival {
 	
 	//Function for querying the database
 	public static Trip[] queryTrip(SearchModel search){
-		
 		Trip [] tripList;
 		//tripName
 		//dateBegin
@@ -100,17 +100,83 @@ public class DatabaseRetrival {
 			String tripName = rs.getString("tripName");
 			Date dateBegins = rs.getDate("dateBegin");
 			Date dateEnds = rs.getDate("dateEnd");
+			String desc = rs.getString("description");
+			int maxPeople = rs.getInt("maxPeople");
+			int minPeople = rs.getInt("minPeople");
 			String location = rs.getString("location");
 			int price = rs.getInt("price");
-			tripList[i] = new Trip(tripName, dateBegins, dateEnds, location, price);
+			String tripId = rs.getString("tripId");
+			
+			tripList[i] = new Trip(tripName, dateBegins, dateEnds, description, maxPeople, minPeople, location, price, tripId);
 			
 		}
 		
 		return tripList;
 	}
 	
-	public static void queryBooking(SearchModel search){
+	public static BookingModel[] queryPersonBooking(String email){
+		BookingModel [] bookingList;
 		
+		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+			ResultSet rs = preparedStatement.executeQuery();
+			bookingList = createBookinglist(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			bookingList = new BookingModel[0];
+		}
+		
+		return bookingList;
+	}
+	
+	public static BookingModel[] queryTripBooking(String tripId){
+		BookingModel [] bookingList;
+		
+		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, tripId);
+			ResultSet rs = preparedStatement.executeQuery();
+			bookingList = createBookinglist(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			bookingList = new BookingModel[0];
+		}
+		
+		return bookingList;
+	}
+	
+	private static BookingModel[] createBookinglist(ResultSet rs){
+		//Get the length of the results set
+		boolean b = rs.last();
+		int n = 0;
+		if(b){
+		    n = rs.getRow();
+		}
+		
+		//Create a list of Trip objects
+		BookingModel[] bookingList = new BookingModel[n];
+		
+		int i = 0;
+		while (rs.next()) {
+			String tripName = rs.getString("tripName");
+			Date dateBegins = rs.getDate("dateBegin");
+			Date dateEnds = rs.getDate("dateEnd");
+			String location = rs.getString("location");
+			int price = rs.getInt("price");
+			bookingList[i] = new BookingModel(tripName, dateBegins, dateEnds, location, price);
+			
+		}
+		
+		return bookingList;
 	}
 	
 	public static void queryAdmin(SearchModel search){
