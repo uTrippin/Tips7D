@@ -21,7 +21,7 @@ public class BookingController {
 		
 		boolean verificationSent;
 		
-		BookingModel[] tripBookings = DatabaseRetrival.queryTripBooking(tripId)
+		BookingModel[] tripBookings = DatabaseRetrival.queryTripBooking(tripId);
 				
 		for(int i=0; i < tripBookings.length; i++) {
 			contact(tripBookings[i].getBookerEmail());

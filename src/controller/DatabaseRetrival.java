@@ -75,6 +75,7 @@ public class DatabaseRetrival {
 		return tripList;	
 	}
 	
+	//Creates a list of Trip objects
 	private Trip[] createTriplist(ResultSet rs){
 		int n = 0;
 		try{
@@ -105,8 +106,8 @@ public class DatabaseRetrival {
 				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId);
 			}
 		} catch(SQLException e){
-				
-			}
+			e.printStackTrace();
+		}
 		
 		return tripList;
 	}
@@ -155,32 +156,67 @@ public class DatabaseRetrival {
 	
 	//Creates a list of BookingModel objects 
 	private BookingModel[] createBookinglist(ResultSet rs){
+		BookingModel[] bookingList;
 		//Get the length of the results set
-		boolean b = rs.last();
 		int n = 0;
-		if(b){
-		    n = rs.getRow();
+		try{
+			boolean b = rs.last();
+			if(b){
+			    n = rs.getRow();
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
 		}
 		
-		//Create a list of Trip objects
-		BookingModel[] bookingList = new BookingModel[n];
-		
-		int i = 0;
-		while (rs.next()) {
-			String bookingId = rs.getString("bookingId");
-			String tripId = rs.getString("tripId");
-			String bookerEmail = rs.getString("bookerEmail");
-			int numPeople = rs.getInt("numPeople");
-			int bookerSSN = rs.getInt("bookerSSN");
-			bookingList[i] = new BookingModel(bookingId, tripId, bookerEmail, numPeople, bookerSSN);
+		try{
+			//Create a list of Trip objects
+			bookingList = new BookingModel[n];
 			
+			int i = 0;
+			while (rs.next()) {
+				String bookingId = rs.getString("bookingId");
+				String tripId = rs.getString("tripId");
+				String bookerEmail = rs.getString("bookerEmail");
+				int numPeople = rs.getInt("numPeople");
+				int bookerSSN = rs.getInt("bookerSSN");
+				bookingList[i] = new BookingModel(bookingId, tripId, bookerEmail, numPeople, bookerSSN);
+				
+			}
+			
+			return bookingList;
+		} catch (SQLException e){
+			bookingList = new BookingModel[n];
+			return bookingList;
 		}
-		
-		return bookingList;
 	}
 	
+	//Queries ADMIN table to get info about admin
 	public void queryAdmin(SearchModel search){
 		
+	}
+	
+	//test function
+	public String simpleQuery(){
+		try{		
+			String selectSQL = "SELECT * FROM TEST WHERE id = ?";
+			PreparedStatement preparedStatement;
+
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, 100);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()){
+				return rs.getString("tester");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String a = "blabla";
+		return a;
+		
+			
 	}
 
 }
