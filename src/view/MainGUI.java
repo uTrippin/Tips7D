@@ -22,11 +22,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JToolBar;
 import java.awt.Button;
-<<<<<<< HEAD
 import javax.swing.JTextField;
-=======
-import javax.swing.JTabbedPane;
->>>>>>> 1a6f6580e248e28910eb7aa0b69a262993744f9b
+import net.miginfocom.swing.MigLayout;
+import java.awt.TextField;
+import java.awt.Panel;
 
 public class MainGUI extends JFrame {
 
@@ -43,32 +42,16 @@ public class MainGUI extends JFrame {
 	private JTextField tfSearch;
 	
 	
-	private Trip tripList(){
-		return tripList;
-	}
 	
-	private SearchModel search(){
-		return search;
-	}
-	
-	private Admin adminConnection(){
-		return adminConnection;
-	}
-	
-	private BookingModel booker(){
-		return booker;
-	}
-	
-	
-	private void showTrips(){
+	public void showTrips(){
 		
 	}
 	
-	private void callSearch(){
+	public void callSearch(){
 		
 	}
 	
-	private void callBooking(){
+	public void callBooking(){
 		
 	}
 
@@ -103,13 +86,27 @@ public class MainGUI extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
+		JPanel pTrip = new JPanel();
+		panel.add(pTrip);
+		
 		JPanel pSearch = new JPanel();
 		panel.add(pSearch);
+		pSearch.setLayout(new MigLayout("", "[400px,grow]", "[200px][grow]"));
 		pSearch.setVisible(false);
 		
+		
 		tfSearch = new JTextField();
-		pSearch.add(tfSearch);
+		pSearch.add(tfSearch, "flowx,cell 0 0,growx,aligny center");
 		tfSearch.setColumns(10);
+		
+		JButton btnSearchTrip = new JButton("Search Trips");
+		btnSearchTrip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pTrip.setVisible(true);
+				pSearch.setVisible(false);
+			}
+		});
+		pSearch.add(btnSearchTrip, "cell 0 0,alignx trailing,aligny center");
 		
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
@@ -117,12 +114,14 @@ public class MainGUI extends JFrame {
 		Button btnTbAdmin = new Button("Admin");
 		btnTbAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pSearch.setVisible(false);
 			}
 		});
 		
 		Button btnTbTrips = new Button("Trip");
 		btnTbTrips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pSearch.setVisible(false);
 			}
 		});
 		toolBar.add(btnTbTrips);
