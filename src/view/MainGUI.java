@@ -88,6 +88,8 @@ public class MainGUI extends JFrame {
 		
 		JPanel pTrip = new JPanel();
 		panel.add(pTrip);
+		pTrip.setLayout(new MigLayout("", "[400px,grow]", "[200px][grow]"));
+		pTrip.setVisible(false);
 		
 		JPanel pSearch = new JPanel();
 		panel.add(pSearch);
@@ -102,8 +104,8 @@ public class MainGUI extends JFrame {
 		JButton btnSearchTrip = new JButton("Search Trips");
 		btnSearchTrip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pTrip.setVisible(true);
 				pSearch.setVisible(false);
+				pTrip.setVisible(true);
 			}
 		});
 		pSearch.add(btnSearchTrip, "cell 0 0,alignx trailing,aligny center");
@@ -130,6 +132,7 @@ public class MainGUI extends JFrame {
 		Button btnTbSearch = new Button("Search");
 		btnTbSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pTrip.setVisible(false);
 				pSearch.setVisible(true);
 				
 			}
