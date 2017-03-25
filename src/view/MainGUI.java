@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,7 +12,16 @@ import model.Trip;
 import model.SearchModel;
 import controller.Admin;
 import model.BookingModel;
+
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenu;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JToolBar;
+import java.awt.Button;
 
 public class MainGUI extends JFrame {
 
@@ -20,6 +30,11 @@ public class MainGUI extends JFrame {
 	private SearchModel search;
 	private Admin adminConnection;
 	private BookingModel booker;
+	private String tripName;
+	private Date dateBegin;
+	private Date dateEnd;
+	private String location;
+	private int price;
 	
 	
 	private Trip tripList(){
@@ -44,7 +59,7 @@ public class MainGUI extends JFrame {
 	}
 	
 	private void callSearch(){
-
+		
 	}
 	
 	private void callBooking(){
@@ -66,6 +81,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the frame.
@@ -81,8 +97,36 @@ public class MainGUI extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		JButton btnSearch = new JButton("Search");
-		panel.add(btnSearch);
+		JToolBar toolBar = new JToolBar();
+		contentPane.add(toolBar, BorderLayout.NORTH);
+		
+		Button btnTbAdmin = new Button("Admin");
+		btnTbAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		Button btnTbTrips = new Button("Trip");
+		btnTbTrips.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		toolBar.add(btnTbTrips);
+		toolBar.add(btnTbAdmin);
+		
+		Button btnTbSearch = new Button("Search");
+		btnTbSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+			}
+		});
+		btnTbSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		toolBar.add(btnTbSearch);
 	}
 	
 	
