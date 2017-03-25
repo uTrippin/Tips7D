@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JToolBar;
 import java.awt.Button;
+import javax.swing.JTextField;
 
 public class MainGUI extends JFrame {
 
@@ -35,6 +36,7 @@ public class MainGUI extends JFrame {
 	private Date dateEnd;
 	private String location;
 	private int price;
+	private JTextField tfSearch;
 	
 	
 	private Trip tripList(){
@@ -97,6 +99,14 @@ public class MainGUI extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
+		JPanel pSearch = new JPanel();
+		panel.add(pSearch);
+		pSearch.setVisible(false);
+		
+		tfSearch = new JTextField();
+		pSearch.add(tfSearch);
+		tfSearch.setColumns(10);
+		
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
@@ -115,15 +125,10 @@ public class MainGUI extends JFrame {
 		toolBar.add(btnTbAdmin);
 		
 		Button btnTbSearch = new Button("Search");
-		btnTbSearch.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				
-			}
-		});
 		btnTbSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pSearch.setVisible(true);
+				
 			}
 		});
 		toolBar.add(btnTbSearch);
