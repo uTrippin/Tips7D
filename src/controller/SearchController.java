@@ -33,17 +33,7 @@ public class SearchController {
 		} else {
 			tripName = searchParam[0];
 		}
-		
-		if(searchParam[1] == "") {
-			dateBegin = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/0001");  
-		} else {
-			try {
-				dateBegin = new SimpleDateFormat("dd/MM/yyyy").parse(searchParam[1]);  
-			} catch(Exception e) {
-				dateBegin = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/0001"); 
-			}
-		}
-		
+			
 		dateBegin = Date.valueOf(searchParam[1]);
 		dateEnd = Date.valueOf(searchParam[2]);
 		

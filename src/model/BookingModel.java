@@ -8,16 +8,11 @@ public class BookingModel {
 	private int numPeople;
 	private int bookerSSN;
 	
-	public BookingModel (String bookingId, String tripId, String bookerEmail, int numPeople, int bookerSSN) {
-		this.bookingId = bookingId;
+	public BookingModel (String tripId, String bookerEmail, int numPeople, int bookerSSN) {
 		this.tripId = tripId;
 		this.bookerEmail = bookerEmail;
 		this.numPeople = numPeople;
 		this.bookerSSN = bookerSSN;
-	}
-		
-	public String getBookingId() {
-		return bookingId;
 	}
 	
 	public String getTripId() {
