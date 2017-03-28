@@ -110,8 +110,9 @@ public class DatabaseUpdater {
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
-			
-		    String sql1 = "CREATE TABLE TRIP " +
+			String sql0 = "DROP TABLE BOOKING";
+			stmt.executeUpdate(sql0);
+		    /*String sql1 = "CREATE TABLE TRIP " +
 		                   	"(tripId SERIAL PRIMARY KEY, " +
 		                   	" tripName VARCHAR(256) NOT NUll, " +
 		                   	" dateBegin DATE NOT NULL, " +
@@ -128,11 +129,11 @@ public class DatabaseUpdater {
 	                   		"(adminId SERIAL PRIMARY KEY, " +
 	                   		" adminPassword VARCHAR(256) NOT NUll)";
 		      
-		      stmt.executeUpdate(sql2);
+		      stmt.executeUpdate(sql2);*/
 		      
 		      String sql3 = "CREATE TABLE BOOKING " +
 		    		  		"(bookingId SERIAL PRIMARY KEY, " +
-		    		  		" tripId VARCHAR(256) NOT NUll, " +
+		    		  		"tripId INT NOT NUll, " +
 		    		  		"bookerEmail VARCHAR(256) NOT NULL, " + 
 		    		  		"numPeople INT NOT NULL, " +
 		    		  		"bookerSSN INT NOT NULL);";
