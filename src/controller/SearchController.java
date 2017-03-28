@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.Date;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -27,7 +27,7 @@ public class SearchController {
 		Date dateEnd;
 		String location;
 		int price;
-		
+				
 		if(searchParam[0] == "") {
 			tripName = ".*";
 		} else {
@@ -44,15 +44,8 @@ public class SearchController {
 			}
 		}
 		
-		if(searchParam[2] == "") {
-			dateEnd = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/3000");  
-		} else {
-			try {
-				dateEnd = new SimpleDateFormat("dd/MM/yyyy").parse(searchParam[2]);  
-			} catch(Exception e) {
-				dateEnd = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/3000");   
-			}
-		}
+		dateBegin = Date.valueOf(searchParam[1]);
+		dateEnd = Date.valueOf(searchParam[2]);
 		
 		if(searchParam[3] == "") {
 			location = ".*";
