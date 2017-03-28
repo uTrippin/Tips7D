@@ -61,19 +61,21 @@ public class DatabaseRetrival {
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
                     ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setString(1, search.getTripName());
-			preparedStatement.setDate(2, (Date) search.getDateBegin());
-			preparedStatement.setDate(3, (Date) search.getDateEnd());
+			preparedStatement.setDate(2, search.getDateBegin());
+			preparedStatement.setDate(3, search.getDateEnd());
 			preparedStatement.setString(4, search.getLocation());
 			preparedStatement.setInt(5, search.getPrice());
 			ResultSet rs = preparedStatement.executeQuery();
 			tripList = createTriplist(rs);
+			System.out.println(tripList[0].getDescription());
 			
-			System.out.print("did it");
+			System.out.println("did it");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			tripList = new Trip[0];
+			System.out.println("nope");
 		}
 		
 		return tripList;	
@@ -88,6 +90,7 @@ public class DatabaseRetrival {
 			if(b){
 			    n = rs.getRow();
 			}
+			rs.beforeFirst();
 		} catch(SQLException e){
 			e.printStackTrace();
 		}	
@@ -95,8 +98,10 @@ public class DatabaseRetrival {
 		Trip[] tripList = new Trip[n];
 		
 		try{
+			System.out.println("You mofo");
 			int i = 0;
 			while (rs.next()) {
+				System.out.println("shizzle bizz nizz");
 				String tripName = rs.getString("tripName");
 				Date dateBegins = rs.getDate("dateBegin");
 				Date dateEnds = rs.getDate("dateEnd");
@@ -108,6 +113,7 @@ public class DatabaseRetrival {
 				String tripId = rs.getString("tripId");
 				
 				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId);
+				i++;
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -218,14 +224,13 @@ public class DatabaseRetrival {
 	//test function
 	public String simpleQuery(){
 		try{		
-			String selectSQL = "SELECT * FROM TEST WHERE id = ?";
+			String selectSQL = "SELECT * FROM TRIP";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, 100);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()){
-				return rs.getString("tester");
+				return rs.getString("tripName");
 			}
 			
 			

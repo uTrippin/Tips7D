@@ -22,6 +22,7 @@ public class testerDB {
 		Trip[] C = dbR.queryTrip(B);
 		
 		System.out.println(C[0].getDescription());
+		//System.out.println(dbR.simpleQuery());
 		
 	}
 }
