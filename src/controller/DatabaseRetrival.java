@@ -139,7 +139,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries the BOOKING table to get info about a trip
-	public BookingModel[] queryTripBooking(String tripId){
+	public BookingModel[] queryTripBooking(int tripId){
 		BookingModel [] bookingList;
 		
 		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
@@ -147,7 +147,7 @@ public class DatabaseRetrival {
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
                     ResultSet.CONCUR_UPDATABLE);
-			preparedStatement.setString(1, tripId);
+			preparedStatement.setInt(1, tripId);
 			ResultSet rs = preparedStatement.executeQuery();
 			bookingList = createBookinglist(rs);
 			
