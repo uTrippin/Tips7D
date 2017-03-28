@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import java.awt.TextField;
 import java.awt.Panel;
+import java.awt.TextArea;
 
 public class MainGUI extends JFrame {
 
@@ -39,7 +40,6 @@ public class MainGUI extends JFrame {
 	private Date dateEnd;
 	private String location;
 	private int price;
-	private JTextField tfSearch;
 	
 	
 	
@@ -89,26 +89,10 @@ public class MainGUI extends JFrame {
 		JPanel pTrip = new JPanel();
 		panel.add(pTrip);
 		pTrip.setLayout(new MigLayout("", "[400px,grow]", "[200px][grow]"));
+		
+		TextField textField = new TextField();
+		pTrip.add(textField, "cell 0 0,grow");
 		pTrip.setVisible(false);
-		
-		JPanel pSearch = new JPanel();
-		panel.add(pSearch);
-		pSearch.setLayout(new MigLayout("", "[400px,grow]", "[200px][grow]"));
-		pSearch.setVisible(false);
-		
-		
-		tfSearch = new JTextField();
-		pSearch.add(tfSearch, "flowx,cell 0 0,growx,aligny center");
-		tfSearch.setColumns(10);
-		
-		JButton btnSearchTrip = new JButton("Search Trips");
-		btnSearchTrip.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pSearch.setVisible(false);
-				pTrip.setVisible(true);
-			}
-		});
-		pSearch.add(btnSearchTrip, "cell 0 0,alignx trailing,aligny center");
 		
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
@@ -117,12 +101,14 @@ public class MainGUI extends JFrame {
 		btnTbAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pSearch.setVisible(false);
+				pTrip.setVisible(false);
 			}
 		});
 		
 		Button btnTbTrips = new Button("Trip");
 		btnTbTrips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pTrip.setVisible(true);
 				pSearch.setVisible(false);
 			}
 		});
