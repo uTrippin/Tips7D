@@ -60,23 +60,25 @@ public class DatabaseUpdater {
 	
 	}
 	//Function that adds a booking to the table BOOKINGS
-	public void insertBooking(BookingModel booking){
+	public boolean insertBooking(BookingModel booking){
 		String insertTableSQL = "INSERT INTO BOOKING"
-				+ "(tripId, bookerEmail, numPeople, bookerSSN) VALUES"
-				+ "(?,?,?,?)";
+				+ "(bookingId, tripId, bookerEmail, numPeople, bookerSSN) VALUES"
+				+ "(?,?,?,?,?)";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(insertTableSQL);
-			preparedStatement.setString(1, booking.getTripId());
-			preparedStatement.setString(2, booking.getBookerEmail());
-			preparedStatement.setInt(3, booking.getNumPeople());
-			preparedStatement.setInt(4, booking.getBookerSSN());
+			preparedStatement.setString(1, booking.getBookingId());
+			preparedStatement.setString(2, booking.getTripId());
+			preparedStatement.setString(3, booking.getBookerEmail());
+			preparedStatement.setInt(4, booking.getNumPeople());
+			preparedStatement.setInt(5, booking.getBookerSSN());
 			//execute insert SQL statement
-			preparedStatement .executeUpdate();
-			System.out.print("Awwww yeeeeaaaaaaaah");
+			preparedStatement.executeUpdate();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

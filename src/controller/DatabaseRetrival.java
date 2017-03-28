@@ -67,15 +67,11 @@ public class DatabaseRetrival {
 			preparedStatement.setInt(5, search.getPrice());
 			ResultSet rs = preparedStatement.executeQuery();
 			tripList = createTriplist(rs);
-			System.out.println(tripList[0].getDescription());
-			
-			System.out.println("did it");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			tripList = new Trip[0];
-			System.out.println("nope");
 		}
 		
 		return tripList;	
@@ -98,10 +94,8 @@ public class DatabaseRetrival {
 		Trip[] tripList = new Trip[n];
 		
 		try{
-			System.out.println("You mofo");
 			int i = 0;
 			while (rs.next()) {
-				System.out.println("shizzle bizz nizz");
 				String tripName = rs.getString("tripName");
 				Date dateBegins = rs.getDate("dateBegin");
 				Date dateEnds = rs.getDate("dateEnd");
@@ -129,7 +123,8 @@ public class DatabaseRetrival {
 		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setString(1, email);
 			ResultSet rs = preparedStatement.executeQuery();
 			bookingList = createBookinglist(rs);
@@ -150,7 +145,8 @@ public class DatabaseRetrival {
 		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setString(1, tripId);
 			ResultSet rs = preparedStatement.executeQuery();
 			bookingList = createBookinglist(rs);
@@ -174,9 +170,11 @@ public class DatabaseRetrival {
 			if(b){
 			    n = rs.getRow();
 			}
+			rs.beforeFirst();
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
+		
 		
 		try{
 			//Create a list of Trip objects
@@ -190,6 +188,7 @@ public class DatabaseRetrival {
 				int numPeople = rs.getInt("numPeople");
 				int bookerSSN = rs.getInt("bookerSSN");
 				bookingList[i] = new BookingModel(bookingId, tripId, bookerEmail, numPeople, bookerSSN);
+				i++;
 			}
 			
 			return bookingList;
@@ -224,13 +223,13 @@ public class DatabaseRetrival {
 	//test function
 	public String simpleQuery(){
 		try{		
-			String selectSQL = "SELECT * FROM TRIP";
+			String selectSQL = "SELECT * FROM BOOKING";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(selectSQL);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()){
-				return rs.getString("tripName");
+				return rs.getString("bookerEmail");
 			}
 			
 			

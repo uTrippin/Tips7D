@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.Date;
 
+import model.BookingModel;
 import model.SearchModel;
 import model.Trip;
 
@@ -12,16 +13,20 @@ public class testerDB {
 	public static void main(String args[]){
 		DatabaseUpdater dbU = new DatabaseUpdater();
 		DatabaseRetrival dbR = new DatabaseRetrival();
-		Date dateBegin = new Date(0);
+		/*Date dateBegin = new Date(0);
 		Date dateEnd = new Date(200000);
-		Trip A = new Trip("Cool Walk", dateBegin, dateEnd, "An awesome walk along the lake of fire", 0, 10, "Iceland", 100000, "trip1");
 		
-		dbU.insertTrip(A);
 		
 		SearchModel B = new SearchModel("Cool Walk", dateBegin, dateEnd, "Iceland", 100000);
 		Trip[] C = dbR.queryTrip(B);
 		
-		System.out.println(C[0].getDescription());
+		System.out.println(C[0].getDescription());*/
+		
+		BookingModel D = new BookingModel("1", "2", "kariawesome@yeeebitch.com", 3, 2002923169);
+		dbU.insertBooking(D);
+		BookingModel[] E = dbR.queryTripBooking("2");
+		System.out.println(E[0].getBookerEmail());
+		
 		//System.out.println(dbR.simpleQuery());
 		
 	}
