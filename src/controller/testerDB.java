@@ -22,9 +22,9 @@ public class testerDB {
 		
 		System.out.println(C[0].getDescription());*/
 		
-		BookingModel D = new BookingModel("1", "2", "kariawesome@yeeebitch.com", 3, 2002923169);
+		BookingModel D = new BookingModel(-1,1, "melkorkasucks@yeeebitch.com", 1, 69696969);
 		dbU.insertBooking(D);
-		BookingModel[] E = dbR.queryTripBooking("2");
+		BookingModel[] E = dbR.queryTripBooking("1");
 		System.out.println(E[0].getBookerEmail());
 		
 		//System.out.println(dbR.simpleQuery());
