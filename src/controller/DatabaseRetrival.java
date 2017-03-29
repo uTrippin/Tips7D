@@ -104,7 +104,7 @@ public class DatabaseRetrival {
 				int minPeople = rs.getInt("minPeople");
 				String location = rs.getString("location");
 				int price = rs.getInt("price");
-				String tripId = rs.getString("tripId");
+				int tripId = rs.getInt("tripId");
 				
 				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId);
 				i++;
@@ -139,7 +139,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries the BOOKING table to get info about a trip
-	public BookingModel[] queryTripBooking(String tripId){
+	public BookingModel[] queryTripBooking(int tripId){
 		BookingModel [] bookingList;
 		
 		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
@@ -147,7 +147,7 @@ public class DatabaseRetrival {
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
                     ResultSet.CONCUR_UPDATABLE);
-			preparedStatement.setString(1, tripId);
+			preparedStatement.setInt(1, tripId);
 			ResultSet rs = preparedStatement.executeQuery();
 			bookingList = createBookinglist(rs);
 			
@@ -182,8 +182,8 @@ public class DatabaseRetrival {
 			
 			int i = 0;
 			while (rs.next()) {
-				String bookingId = rs.getString("bookingId");
-				String tripId = rs.getString("tripId");
+				int bookingId = rs.getInt("bookingId");
+				int tripId = rs.getInt("tripId");
 				String bookerEmail = rs.getString("bookerEmail");
 				int numPeople = rs.getInt("numPeople");
 				int bookerSSN = rs.getInt("bookerSSN");

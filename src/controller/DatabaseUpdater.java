@@ -62,16 +62,15 @@ public class DatabaseUpdater {
 	//Function that adds a booking to the table BOOKINGS
 	public boolean insertBooking(BookingModel booking){
 		String insertTableSQL = "INSERT INTO BOOKING"
-				+ "(bookingId, tripId, bookerEmail, numPeople, bookerSSN) VALUES"
-				+ "(?,?,?,?,?)";
+				+ "(tripId, bookerEmail, numPeople, bookerSSN) VALUES"
+				+ "(?,?,?,?)";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(insertTableSQL);
-			preparedStatement.setString(1, booking.getBookingId());
-			preparedStatement.setString(2, booking.getTripId());
-			preparedStatement.setString(3, booking.getBookerEmail());
-			preparedStatement.setInt(4, booking.getNumPeople());
-			preparedStatement.setInt(5, booking.getBookerSSN());
+			preparedStatement.setInt(1, booking.getTripId());
+			preparedStatement.setString(2, booking.getBookerEmail());
+			preparedStatement.setInt(3, booking.getNumPeople());
+			preparedStatement.setInt(4, booking.getBookerSSN());
 			//execute insert SQL statement
 			preparedStatement.executeUpdate();
 			return true;
@@ -85,20 +84,19 @@ public class DatabaseUpdater {
 	//Function that adds a booking to the table BOOKINGS
 		public void insertTrip(Trip trip){
 			String insertTableSQL = "INSERT INTO TRIP"
-					+ "(tripId, tripName, dateBegin, dateEnd, description, maxPeople, minPeople, location, price) VALUES"
-					+ "(?,?,?,?,?,?,?,?,?)";
+					+ "(tripName, dateBegin, dateEnd, description, maxPeople, minPeople, location, price) VALUES"
+					+ "(?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement;
 			try {
 				preparedStatement = connection.prepareStatement(insertTableSQL);
-				preparedStatement.setString(1, trip.getTripId());
-				preparedStatement.setString(2, trip.getTripName());
-				preparedStatement.setDate(3, (Date) trip.getDateBegin());
-				preparedStatement.setDate(4, (Date) trip.getDateEnd());
-				preparedStatement.setString(5, trip.getDescription());
-				preparedStatement.setInt(6, trip.getMaxPeople());
-				preparedStatement.setInt(7, trip.getMinPeople());
-				preparedStatement.setString(8, trip.getLocation());
-				preparedStatement.setInt(9, trip.getPrice());
+				preparedStatement.setString(1, trip.getTripName());
+				preparedStatement.setDate(2, (Date) trip.getDateBegin());
+				preparedStatement.setDate(3, (Date) trip.getDateEnd());
+				preparedStatement.setString(4, trip.getDescription());
+				preparedStatement.setInt(5, trip.getMaxPeople());
+				preparedStatement.setInt(6, trip.getMinPeople());
+				preparedStatement.setString(7, trip.getLocation());
+				preparedStatement.setInt(8, trip.getPrice());
 				//execute insert SQL statement
 				preparedStatement .executeUpdate();
 				System.out.print("Awwww yeeeeaaaaaaaah");
@@ -112,13 +110,10 @@ public class DatabaseUpdater {
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
-		      
-			String sql0 = "DROP TABLE BOOKING;";
-			
+			String sql0 = "DROP TABLE BOOKING";
 			stmt.executeUpdate(sql0);
-			
-		      /*String sql1 = "CREATE TABLE TRIP " +
-		                   	"(tripId VARCHAR(256) NOT NULL, " +
+		    /*String sql1 = "CREATE TABLE TRIP " +
+		                   	"(tripId SERIAL PRIMARY KEY, " +
 		                   	" tripName VARCHAR(256) NOT NUll, " +
 		                   	" dateBegin DATE NOT NULL, " +
 		                   	" dateEnd DATE NOT NULL, " +
@@ -131,14 +126,14 @@ public class DatabaseUpdater {
 		      stmt.executeUpdate(sql1);
 		      
 		      String sql2 = "CREATE TABLE ADMIN " +
-	                   		"(adminId VARCHAR(256) NOT NULL, " +
+	                   		"(adminId SERIAL PRIMARY KEY, " +
 	                   		" adminPassword VARCHAR(256) NOT NUll)";
 		      
 		      stmt.executeUpdate(sql2);*/
 		      
 		      String sql3 = "CREATE TABLE BOOKING " +
-		    		  		"(bookingId VARCHAR(256) SERIAL PRIMARY KEY, " +
-		    		  		" tripId VARCHAR(256) NOT NUll, " +
+		    		  		"(bookingId SERIAL PRIMARY KEY, " +
+		    		  		"tripId INT NOT NUll, " +
 		    		  		"bookerEmail VARCHAR(256) NOT NULL, " + 
 		    		  		"numPeople INT NOT NULL, " +
 		    		  		"bookerSSN INT NOT NULL);";

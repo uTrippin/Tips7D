@@ -12,9 +12,9 @@ public class Trip {
 	private int minPeople;
 	private String location;
 	private int price;
-	private String tripId;
+	private int tripId;
 	
-	public Trip(String tripName, Date dateBegin, Date dateEnd, String description, int maxPeople, int minPeople, String location, int price, String tripId) {
+	public Trip(String tripName, Date dateBegin, Date dateEnd, String description, int maxPeople, int minPeople, String location, int price, int tripId) {
 		this.tripName = tripName;
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
@@ -58,7 +58,7 @@ public class Trip {
 		return price;
 	}
 	
-	public String getTripId() {
+	public int getTripId() {
 		return tripId;
 	}
 	
@@ -94,7 +94,7 @@ public class Trip {
 		this.price = price;
 	}
 	
-	private void setTripId(String tripId) {
+	private void setTripId(int tripId) {
 		this.tripId = tripId;
 	}
 }
