@@ -57,19 +57,25 @@ public class MainGUI extends JFrame {
 	private JTextField tfSSN;
 	private JTextField tfNrOfPeople;
 	private JTextField tfTrip;
+<<<<<<< HEAD
 	
 	
 	
+=======
+
+
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 	public void showTrips(){
-		
+
 	}
-	
+
 	public void callSearch(){
-		
+
 	}
-	
+
 	public void callBooking(){
-		
+
 	}
 
 	/**
@@ -87,7 +93,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 	}
-	
+
 
 	/**
 	 * Create the frame.
@@ -99,32 +105,56 @@ public class MainGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
-		
+
 		Button btnTbAdmin = new Button("Admin");
 		btnTbAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
+=======
+				pSearch.setVisible(false);
+				pTrip.setVisible(false);
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 			}
 		});
-		
+
 		Button btnTbTrips = new Button("Trip");
 		btnTbTrips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
+=======
+				pTrip.setVisible(true);
+				pSearch.setVisible(false);
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 			}
 		});
 		toolBar.add(btnTbTrips);
 		toolBar.add(btnTbAdmin);
-		
+
 		Button btnTbSearch = new Button("Search");
 		btnTbSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				
 			}
 		});
 		toolBar.add(btnTbSearch);
 		
+=======
+				pTrip.setVisible(false);
+				pSearch.setVisible(true);
+
+			}
+		});
+		toolBar.add(btnTbSearch);
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JPanel pBook = new JPanel();
 		contentPane.add(pBook, BorderLayout.CENTER);
 		GridBagLayout gbl_pBook = new GridBagLayout();
@@ -133,7 +163,11 @@ public class MainGUI extends JFrame {
 		gbl_pBook.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_pBook.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		pBook.setLayout(gbl_pBook);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JLabel lBookYourTrip = new JLabel("Book your trip");
 		GridBagConstraints gbc_lBookYourTrip = new GridBagConstraints();
 		gbc_lBookYourTrip.anchor = GridBagConstraints.SOUTHEAST;
@@ -141,7 +175,11 @@ public class MainGUI extends JFrame {
 		gbc_lBookYourTrip.gridx = 1;
 		gbc_lBookYourTrip.gridy = 0;
 		pBook.add(lBookYourTrip, gbc_lBookYourTrip);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JLabel lSSN = new JLabel("SSN:");
 		GridBagConstraints gbc_lSSN = new GridBagConstraints();
 		gbc_lSSN.insets = new Insets(0, 0, 5, 5);
@@ -149,7 +187,11 @@ public class MainGUI extends JFrame {
 		gbc_lSSN.gridx = 1;
 		gbc_lSSN.gridy = 1;
 		pBook.add(lSSN, gbc_lSSN);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		tfSSN = new JTextField();
 		GridBagConstraints gbc_tfSSN = new GridBagConstraints();
 		gbc_tfSSN.insets = new Insets(0, 0, 5, 0);
@@ -158,7 +200,11 @@ public class MainGUI extends JFrame {
 		gbc_tfSSN.gridy = 1;
 		pBook.add(tfSSN, gbc_tfSSN);
 		tfSSN.setColumns(10);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JLabel lEmail = new JLabel("E-mail:");
 		GridBagConstraints gbc_lEmail = new GridBagConstraints();
 		gbc_lEmail.insets = new Insets(0, 0, 5, 5);
@@ -166,7 +212,11 @@ public class MainGUI extends JFrame {
 		gbc_lEmail.gridx = 1;
 		gbc_lEmail.gridy = 2;
 		pBook.add(lEmail, gbc_lEmail);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		tfEmail = new JTextField();
 		GridBagConstraints gbc_tfEmail = new GridBagConstraints();
 		gbc_tfEmail.insets = new Insets(0, 0, 5, 0);
@@ -175,13 +225,21 @@ public class MainGUI extends JFrame {
 		gbc_tfEmail.gridy = 2;
 		pBook.add(tfEmail, gbc_tfEmail);
 		tfEmail.setColumns(10);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JButton btnBook = new JButton("Book!");
 		btnBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JLabel lNrOfPeople = new JLabel("Nr. of people:");
 		GridBagConstraints gbc_lNrOfPeople = new GridBagConstraints();
 		gbc_lNrOfPeople.insets = new Insets(0, 0, 5, 5);
@@ -189,7 +247,11 @@ public class MainGUI extends JFrame {
 		gbc_lNrOfPeople.gridx = 1;
 		gbc_lNrOfPeople.gridy = 3;
 		pBook.add(lNrOfPeople, gbc_lNrOfPeople);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		tfNrOfPeople = new JTextField();
 		GridBagConstraints gbc_tfNrOfPeople = new GridBagConstraints();
 		gbc_tfNrOfPeople.insets = new Insets(0, 0, 5, 0);
@@ -198,7 +260,11 @@ public class MainGUI extends JFrame {
 		gbc_tfNrOfPeople.gridy = 3;
 		pBook.add(tfNrOfPeople, gbc_tfNrOfPeople);
 		tfNrOfPeople.setColumns(10);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JLabel lblFer = new JLabel("Trip:");
 		GridBagConstraints gbc_lblFer = new GridBagConstraints();
 		gbc_lblFer.insets = new Insets(0, 0, 5, 5);
@@ -206,7 +272,11 @@ public class MainGUI extends JFrame {
 		gbc_lblFer.gridx = 1;
 		gbc_lblFer.gridy = 4;
 		pBook.add(lblFer, gbc_lblFer);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		tfTrip = new JTextField();
 		GridBagConstraints gbc_tfTrip = new GridBagConstraints();
 		gbc_tfTrip.insets = new Insets(0, 0, 5, 0);
@@ -221,11 +291,19 @@ public class MainGUI extends JFrame {
 		gbc_btnBook.gridx = 2;
 		gbc_btnBook.gridy = 5;
 		pBook.add(btnBook, gbc_btnBook);
+<<<<<<< HEAD
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new CardLayout(0, 0));
 		
+=======
+
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new CardLayout(0, 0));
+
+>>>>>>> bb1665ab78634dc5286aea1db3efca7322f5abb2
 		JList list = new JList();
 		panel.add(list, "name_257112016322875");
 	}
