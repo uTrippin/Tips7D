@@ -84,6 +84,5 @@ public class SearchController {
 		} catch(Exception e) {
 			// do nothing
 		}*/		
-		
 	}
 }
