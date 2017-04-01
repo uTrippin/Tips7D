@@ -54,7 +54,7 @@ public class DatabaseRetrival {
 		Trip [] tripList;
 		
 		try{		
-			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ ? AND dateBegin BETWEEN '?' AND '?' AND dateEnd BETWEEN '?' AND '?' AND location = ?"
+			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ ? AND dateBegin BETWEEN ? AND ? AND dateEnd BETWEEN ? AND ? AND location ~ ?"
 					+ "AND price <= ?";
 			PreparedStatement preparedStatement;
 

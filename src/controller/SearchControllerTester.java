@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class DatabaseRetrivalTest {
+public class SearchControllerTester {
 	private SearchModel search1, search2, search3, search4;
 	private Trip[] list1, list2, list3, list4;
 	private DatabaseRetrival db;
@@ -23,7 +23,7 @@ public class DatabaseRetrivalTest {
 		
 	@Before
 	public void setUp() { 
-		/*searchPm1 = new String[] {"Hallo", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
+		searchPm1 = new String[] {"Hallo", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
 		search1  = new SearchModel(searchPm1);
 		
 		searchPm2 = new String[] {"Bless", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
@@ -31,8 +31,8 @@ public class DatabaseRetrivalTest {
 		
 		searchPm3 = new String[] {"Hallo", "invalid", "invalid", "Reykjavík", "invalid"};
 		search3 = new SearchModel(searchPm3);
-		*/
-		searchPm4 = new String[]  {"Hallo", "", "", "Reykjavík", ""};
+		
+		searchPm4 = new String[]  {"", "", "", "", ""};
 		search4 = new SearchModel(searchPm4);
 		
 		Date dateb = Date.valueOf("2017-04-01");
@@ -48,17 +48,22 @@ public class DatabaseRetrivalTest {
 	
 	@After
 	public void tearDown() { 
-		// For testing queryTrip
 		search1 = null;
 		search2 = null;
 		search3 = null;
 		search4 = null;
 		
+		searchPm1 = null;
+		searchPm2 = null;
+		searchPm3 = null;
+		searchPm4 = null;
+		
 		list1 = null;
+		list2 = null;
 		db = null;
 	}
 	
-	/*@Test
+	@Test
 	public void testExistingTrip() throws ParseException {
 		
 		Trip[] listFromDB = SearchController.findResults(searchPm1);
@@ -113,7 +118,7 @@ public class DatabaseRetrivalTest {
 			assertEquals(list1[i].getLocation(), listFromDB[i].getLocation());
 			assertEquals(list1[i].getPrice(), listFromDB[i].getPrice());
 		}	
-	}*/
+	}
 	
 	@Test
 	public void testWithEmptyParameters() throws ParseException {
@@ -131,6 +136,6 @@ public class DatabaseRetrivalTest {
 			assertEquals(list1[i].getMinPeople(), listFromDB[i].getMinPeople());
 			assertEquals(list1[i].getLocation(), listFromDB[i].getLocation());
 			assertEquals(list1[i].getPrice(), listFromDB[i].getPrice());
-		}	
+		}
 	}
 }
