@@ -55,7 +55,7 @@ public class DatabaseRetrival {
 		
 		try{		
 			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin = ? AND dateEnd = ? AND location = ?"
-					+ "AND price = ?";
+					+ "AND price <= ?";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
