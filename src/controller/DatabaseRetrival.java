@@ -54,7 +54,7 @@ public class DatabaseRetrival {
 		Trip [] tripList;
 		
 		try{		
-			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin BETWEEN ? AND ? AND dateEnd BETWEEN ? AND ? AND location = ?"
+			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ ? AND dateBegin BETWEEN '?' AND '?' AND dateEnd BETWEEN '?' AND '?' AND location = ?"
 					+ "AND price <= ?";
 			PreparedStatement preparedStatement;
 
@@ -223,15 +223,16 @@ public class DatabaseRetrival {
 	}
 	
 	//test function
-	public String simpleQuery(){
+	public String simpleQuery(String a){
 		try{		
-			String selectSQL = "SELECT * FROM BOOKING";
+			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ '.*'";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(selectSQL);
+			//preparedStatement.setString(1, "*");
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()){
-				return rs.getString("bookerEmail");
+				return rs.getString("tripName");
 			}
 			
 			
@@ -239,8 +240,8 @@ public class DatabaseRetrival {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String a = "blabla";
-		return a;
+		String b = "blabla";
+		return b;
 		
 			
 	}
