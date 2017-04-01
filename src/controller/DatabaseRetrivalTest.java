@@ -29,7 +29,7 @@ public class DatabaseRetrivalTest {
 		searchPm2 = new String[] {"Bless", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
 		search2 = new SearchModel(searchPm2);
 		
-		searchPm3 = new String[] {"Hallo", "ehvbull", "meirabull", "Ísland", "ehvbull"};
+		searchPm3 = new String[] {"Hallo", "ehvbull", "2017-05-01", "Ísland", "1000"};
 		search3 = new SearchModel(searchPm3);
 		
 		searchPm4 = new String[]  {"", "", "", "", ""};
