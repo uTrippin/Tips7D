@@ -12,10 +12,6 @@ public class BookingController {
 		
 		boolean bookingComplete = false;
 		
-		// missing
-		// útfæra fall í db updater til að bæta við bókun, 
-		// 
-		
 		BookingModel booking = new BookingModel(-1, Integer.parseInt(tripInfo[0]), tripInfo[1], Integer.parseInt(tripInfo[2]), Integer.parseInt(tripInfo[3]));
 				
 		bookingComplete = dbUpdater.insertBooking(booking);

@@ -33,9 +33,18 @@ public class SearchController {
 		} else {
 			tripName = searchParam[0];
 		}
-			
-		dateBegin = Date.valueOf(searchParam[1]);
-		dateEnd = Date.valueOf(searchParam[2]);
+		
+		try {
+			dateBegin = Date.valueOf(searchParam[1]);
+		} catch(Exception e) {
+			dateBegin = Date.valueOf("2017-01-01"); // Format: "yyyy-[m]m-[d]d"
+		}
+		
+		try {
+			dateEnd = Date.valueOf(searchParam[2]);
+		} catch(Exception e) {
+			dateEnd = Date.valueOf("2030-12-24");
+		}
 		
 		if(searchParam[3] == "") {
 			location = ".*";
@@ -60,10 +69,10 @@ public class SearchController {
 	
 	
 	public static void main(String args[]) {
-		DatabaseRetrival dbRetrival = new DatabaseRetrival();
+		/*DatabaseRetrival dbRetrival = new DatabaseRetrival();
 		
-		String[] param = {"", "10/01/16", "11/01/16", "", "1500"};
-		
+		String[] param = {"Hallo", "2017-01-01", "2017-05-01", "Reykjavik", "100"};
+
 		SearchController test = new SearchController();
 		
 		try {
@@ -74,6 +83,7 @@ public class SearchController {
 			}			 
 		} catch(Exception e) {
 			// do nothing
-		}
+		}*/		
+		
 	}
 }
