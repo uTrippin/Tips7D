@@ -10,7 +10,47 @@ public class SearchModel {
 	private String location;
 	private int price;
 	
-	public SearchModel(String tripName, Date dateBegin, Date dateEnd, String location, int price) {
+	public SearchModel(String[] searchParam) {
+		String tripName;
+		Date dateBegin;
+		Date dateEnd;
+		String location;
+		int price;
+				
+		if(searchParam[0] == "") {
+			tripName = ".*";
+		} else {
+			tripName = searchParam[0];
+		}
+		
+		try {
+			dateBegin = Date.valueOf(searchParam[1]);
+		} catch(Exception e) {
+			dateBegin = Date.valueOf("2017-01-01"); // Format: "yyyy-[m]m-[d]d"
+		}
+		
+		try {
+			dateEnd = Date.valueOf(searchParam[2]);
+		} catch(Exception e) {
+			dateEnd = Date.valueOf("2030-12-24");
+		}
+		
+		if(searchParam[3] == "") {
+			location = ".*";
+		} else {
+			location = searchParam[3];
+		}
+		
+		if(searchParam[4] == "") {
+			price = Integer.MAX_VALUE;
+		} else {
+			try {
+				price = Integer.parseInt(searchParam[4]);
+			} catch(Exception e) {
+				price = Integer.MAX_VALUE;
+			}
+		}
+		
 		this.tripName = tripName;
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
