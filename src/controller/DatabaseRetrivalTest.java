@@ -23,16 +23,16 @@ public class DatabaseRetrivalTest {
 		
 	@Before
 	public void setUp() { 
-		searchPm1 = new String[] {"Hallo", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
+		/*searchPm1 = new String[] {"Hallo", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
 		search1  = new SearchModel(searchPm1);
 		
 		searchPm2 = new String[] {"Bless", "2017-04-01", "2017-05-01", "Reykjavík", "1000"};
 		search2 = new SearchModel(searchPm2);
 		
-		searchPm3 = new String[] {"Hallo", "ehvbull", "2017-05-01", "Ísland", "1000"};
+		searchPm3 = new String[] {"Hallo", "invalid", "invalid", "Reykjavík", "invalid"};
 		search3 = new SearchModel(searchPm3);
-		
-		searchPm4 = new String[]  {"", "", "", "", ""};
+		*/
+		searchPm4 = new String[]  {"Hallo", "", "", "Reykjavík", ""};
 		search4 = new SearchModel(searchPm4);
 		
 		Date dateb = Date.valueOf("2017-04-01");
@@ -58,7 +58,7 @@ public class DatabaseRetrivalTest {
 		db = null;
 	}
 	
-	@Test
+	/*@Test
 	public void testExistingTrip() throws ParseException {
 		
 		Trip[] listFromDB = SearchController.findResults(searchPm1);
@@ -102,9 +102,8 @@ public class DatabaseRetrivalTest {
 		Trip[] listFromDB = SearchController.findResults(searchPm3);
 		
 		assertEquals(list1.length, listFromDB.length);
-	
 		
-		/*for(int i=0; i < list1.length; i++) {
+		for(int i=0; i < list1.length; i++) {
 			assertEquals(list1[i].getTripName(), listFromDB[i].getTripName());
 			assertEquals(list1[i].getDateBegin(), listFromDB[i].getDateBegin());
 			assertEquals(list1[i].getDateEnd(), listFromDB[i].getDateEnd());
@@ -113,7 +112,25 @@ public class DatabaseRetrivalTest {
 			assertEquals(list1[i].getMinPeople(), listFromDB[i].getMinPeople());
 			assertEquals(list1[i].getLocation(), listFromDB[i].getLocation());
 			assertEquals(list1[i].getPrice(), listFromDB[i].getPrice());
-		}*/
+		}	
+	}*/
+	
+	@Test
+	public void testWithEmptyParameters() throws ParseException {
 		
+		Trip[] listFromDB = SearchController.findResults(searchPm4);
+		
+		assertEquals(list1.length, listFromDB.length);
+		
+		for(int i=0; i < list1.length; i++) {
+			assertEquals(list1[i].getTripName(), listFromDB[i].getTripName());
+			assertEquals(list1[i].getDateBegin(), listFromDB[i].getDateBegin());
+			assertEquals(list1[i].getDateEnd(), listFromDB[i].getDateEnd());
+			assertEquals(list1[i].getDescription(), listFromDB[i].getDescription());
+			assertEquals(list1[i].getMaxPeople(), listFromDB[i].getMaxPeople());
+			assertEquals(list1[i].getMinPeople(), listFromDB[i].getMinPeople());
+			assertEquals(list1[i].getLocation(), listFromDB[i].getLocation());
+			assertEquals(list1[i].getPrice(), listFromDB[i].getPrice());
+		}	
 	}
 }

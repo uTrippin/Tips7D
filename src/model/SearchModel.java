@@ -17,7 +17,7 @@ public class SearchModel {
 		String location;
 		int price;
 				
-		if(searchParam[0] == "") {
+		if("".equals(searchParam[0])) {
 			tripName = ".*";
 		} else {
 			tripName = searchParam[0];
