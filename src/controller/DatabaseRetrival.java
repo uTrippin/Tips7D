@@ -54,7 +54,7 @@ public class DatabaseRetrival {
 		Trip [] tripList;
 		
 		try{		
-			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin = ? AND dateEnd = ? AND location = ?"
+			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin >= ? AND dateEnd <= ? AND location = ?"
 					+ "AND price <= ?";
 			PreparedStatement preparedStatement;
 
