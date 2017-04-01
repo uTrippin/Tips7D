@@ -54,7 +54,7 @@ public class DatabaseRetrival {
 		Trip [] tripList;
 		
 		try{		
-			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin >= ? AND dateEnd = ? AND location = ?"
+			String selectSQL = "SELECT * FROM TRIP WHERE tripName = ? AND dateBegin BETWEEN '?' AND '?' AND dateEnd BETWEEN '?' AND '?' AND location = ?"
 					+ "AND price <= ?";
 			PreparedStatement preparedStatement;
 
@@ -63,8 +63,10 @@ public class DatabaseRetrival {
 			preparedStatement.setString(1, search.getTripName());
 			preparedStatement.setDate(2, search.getDateBegin());
 			preparedStatement.setDate(3, search.getDateEnd());
-			preparedStatement.setString(4, search.getLocation());
-			preparedStatement.setInt(5, search.getPrice());
+			preparedStatement.setDate(4, search.getDateBegin());
+			preparedStatement.setDate(5, search.getDateEnd());
+			preparedStatement.setString(6, search.getLocation());
+			preparedStatement.setInt(7, search.getPrice());
 			ResultSet rs = preparedStatement.executeQuery();
 			tripList = createTriplist(rs);
 			
