@@ -228,9 +228,5 @@ public class MainGUI extends JFrame {
 		panel.setBounds(5, 30, 424, 226);
 		contentPane.add(panel);
 		panel.setLayout(null);
-
-		JList list = new JList();
-		list.setBounds(0, 0, 424, 226);
-		panel.add(list);
 	}
 }
