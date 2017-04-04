@@ -241,5 +241,9 @@ public class MainGUI extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 10, 10);
 		contentPane.add(panel);
+<<<<<<< HEAD
+=======
+		panel.setLayout(null);
+>>>>>>> e78213c484778f56e6798520cd5215180fb225c0
 	}
 }
