@@ -97,11 +97,12 @@ public class MainGUI extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
 		JToolBar toolBar = new JToolBar();
-		contentPane.add(toolBar, BorderLayout.NORTH);
+		toolBar.setBounds(5, 5, 424, 25);
+		contentPane.add(toolBar);
 
 		Button btnTbAdmin = new Button("Admin");
 		btnTbAdmin.addActionListener(new ActionListener() {
@@ -126,7 +127,8 @@ public class MainGUI extends JFrame {
 		toolBar.add(btnTbSearch);
 
 		JPanel pBook = new JPanel();
-		contentPane.add(pBook, BorderLayout.CENTER);
+		pBook.setBounds(0, 0, 0, 0);
+		contentPane.add(pBook);
 		GridBagLayout gbl_pBook = new GridBagLayout();
 		gbl_pBook.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_pBook.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -223,10 +225,12 @@ public class MainGUI extends JFrame {
 		pBook.add(btnBook, gbc_btnBook);
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new CardLayout(0, 0));
+		panel.setBounds(5, 30, 424, 226);
+		contentPane.add(panel);
+		panel.setLayout(null);
 
 		JList list = new JList();
-		panel.add(list, "name_257112016322875");
+		list.setBounds(0, 0, 424, 226);
+		panel.add(list);
 	}
 }
