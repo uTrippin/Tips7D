@@ -40,6 +40,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
 import javax.swing.JList;
+import java.awt.Dimension;
+import java.awt.Component;
 
 public class MainGUI extends JFrame {
 
@@ -57,6 +59,8 @@ public class MainGUI extends JFrame {
 	private JTextField tfSSN;
 	private JTextField tfNrOfP;
 	private JTextField tfTrip;
+	private JPanel panelBook;
+	private JTextField tfSearch;
 
 
 
@@ -93,35 +97,49 @@ public class MainGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainGUI() {
+		setMinimumSize(new Dimension(500, 300));
+		setSize(new Dimension(1000, 700));
+		setMaximumSize(new Dimension(1000, 700));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setMinimumSize(new Dimension(500, 300));
+		contentPane.setMaximumSize(new Dimension(1000, 700));
+		contentPane.setName("Day trips");
+		contentPane.setSize(new Dimension(1000, 700));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panelTrip = new JPanel();
-		panelTrip.setBounds(5, 30, 424, 226);
+		panelTrip.setName("Day Trips");
+		panelTrip.setBounds(38, 26, 424, 226);
 		contentPane.add(panelTrip);
 		panelTrip.setLayout(null);
 		panelTrip.setVisible(false);
 		
 		JLabel lblNewLabel_1 = new JLabel("Trip");
-		lblNewLabel_1.setBounds(189, 6, 61, 16);
+		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNewLabel_1.setBounds(195, 30, 34, 16);
 		panelTrip.add(lblNewLabel_1);
 		
 		JPanel panelSearch = new JPanel();
-		panelSearch.setBounds(5, 30, 424, 226);
+		panelSearch.setBounds(38, 26, 424, 226);
 		contentPane.add(panelSearch);
 		panelSearch.setLayout(null);
 		panelSearch.setVisible(false);
 		
 		JLabel lblSearch = new JLabel("Search");
-		lblSearch.setBounds(189, 6, 41, 16);
+		lblSearch.setBounds(191, 30, 41, 16);
 		panelSearch.add(lblSearch);
 		
+		tfSearch = new JTextField();
+		tfSearch.setBounds(4, 82, 415, 31);
+		panelSearch.add(tfSearch);
+		tfSearch.setColumns(10);
+		
 		JPanel panelAdmin = new JPanel();
-		panelAdmin.setBounds(5, 30, 424, 226);
+		panelAdmin.setBounds(38, 26, 424, 226);
 		contentPane.add(panelAdmin);
 		panelAdmin.setLayout(null);
 		panelAdmin.setVisible(false);
@@ -130,12 +148,26 @@ public class MainGUI extends JFrame {
 		lblNewLabel.setBounds(189, 6, 61, 16);
 		panelAdmin.add(lblNewLabel);
 		
-		JPanel panelBook = new JPanel();
-		panelBook.setBounds(5, 30, 424, 226);
+		JButton btnSearshTrip = new JButton("SearchTrip");
+		btnSearshTrip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(true);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(false);
+			}
+		});
+		btnSearshTrip.setBounds(153, 149, 117, 29);
+		panelSearch.add(btnSearshTrip);
+		
+		
+		
+		panelBook = new JPanel();
+		panelBook.setBounds(38, 26, 424, 226);
 		contentPane.add(panelBook);
 		panelBook.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JLabel lableBookYourTrip = new JLabel("Book your tirp:");
+		JLabel lableBookYourTrip = new JLabel("Book your trip:");
 		panelBook.add(lableBookYourTrip);
 		
 		JLabel label = new JLabel("");
@@ -184,11 +216,26 @@ public class MainGUI extends JFrame {
 		tfTrip.setEnabled(false);
 		panelBook.add(tfTrip);
 		tfTrip.setColumns(10);
+		
+		JLabel lable_6 = new JLabel("");
+		panelBook.add(lable_6
+				);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(false);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(false);
+			}
+		});
+		panelBook.add(btnSubmit);
 		panelBook.setVisible(false);
 
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		toolBar.setBounds(5, 5, 424, 25);
+		toolBar.setBounds(38, 0, 424, 26);
 		contentPane.add(toolBar);
 
 		Button btnTbAdmin = new Button("Admin");
@@ -219,11 +266,10 @@ public class MainGUI extends JFrame {
 				panelTrip.setVisible(false);
 				panelAdmin.setVisible(false);
 				panelSearch.setVisible(false);
-				panelBook.setVisible(false);
 				panelBook.setVisible(true);
 			}
 		});
-		btnBookTrip.setBounds(147, 92, 117, 29);
+		btnBookTrip.setBounds(153, 191, 117, 29);
 		panelTrip.add(btnBookTrip);
 	
 
@@ -237,13 +283,5 @@ public class MainGUI extends JFrame {
 			}
 		});
 		toolBar.add(btnTbSearch);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		contentPane.add(panel);
-<<<<<<< HEAD
-=======
-		panel.setLayout(null);
->>>>>>> e78213c484778f56e6798520cd5215180fb225c0
 	}
 }
