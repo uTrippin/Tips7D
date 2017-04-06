@@ -40,6 +40,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
 import javax.swing.JList;
+import java.awt.Dimension;
+import java.awt.Component;
 
 public class MainGUI extends JFrame {
 
@@ -55,8 +57,10 @@ public class MainGUI extends JFrame {
 	private int price;
 	private JTextField tfEmail;
 	private JTextField tfSSN;
-	private JTextField tfNrOfPeople;
+	private JTextField tfNrOfP;
 	private JTextField tfTrip;
+	private JPanel panelBook;
+	private JTextField tfSearch;
 
 
 
@@ -93,140 +97,191 @@ public class MainGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainGUI() {
+		setMinimumSize(new Dimension(500, 300));
+		setSize(new Dimension(1000, 700));
+		setMaximumSize(new Dimension(1000, 700));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setMinimumSize(new Dimension(500, 300));
+		contentPane.setMaximumSize(new Dimension(1000, 700));
+		contentPane.setName("Day trips");
+		contentPane.setSize(new Dimension(1000, 700));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JPanel panelTrip = new JPanel();
+		panelTrip.setName("Day Trips");
+		panelTrip.setBounds(38, 26, 424, 226);
+		contentPane.add(panelTrip);
+		panelTrip.setLayout(null);
+		panelTrip.setVisible(false);
+		
+		JLabel lblNewLabel_1 = new JLabel("Trip");
+		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNewLabel_1.setBounds(195, 30, 34, 16);
+		panelTrip.add(lblNewLabel_1);
+		
+		JPanel panelSearch = new JPanel();
+		panelSearch.setBounds(38, 26, 424, 226);
+		contentPane.add(panelSearch);
+		panelSearch.setLayout(null);
+		panelSearch.setVisible(false);
+		
+		JLabel lblSearch = new JLabel("Search");
+		lblSearch.setBounds(191, 30, 41, 16);
+		panelSearch.add(lblSearch);
+		
+		tfSearch = new JTextField();
+		tfSearch.setBounds(4, 82, 415, 31);
+		panelSearch.add(tfSearch);
+		tfSearch.setColumns(10);
+		
+		JPanel panelAdmin = new JPanel();
+		panelAdmin.setBounds(38, 26, 424, 226);
+		contentPane.add(panelAdmin);
+		panelAdmin.setLayout(null);
+		panelAdmin.setVisible(false);
+		
+		JLabel lblNewLabel = new JLabel("Admin");
+		lblNewLabel.setBounds(189, 6, 61, 16);
+		panelAdmin.add(lblNewLabel);
+		
+		JButton btnSearshTrip = new JButton("SearchTrip");
+		btnSearshTrip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(true);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(false);
+			}
+		});
+		btnSearshTrip.setBounds(153, 149, 117, 29);
+		panelSearch.add(btnSearshTrip);
+		
+		
+		
+		panelBook = new JPanel();
+		panelBook.setBounds(38, 26, 424, 226);
+		contentPane.add(panelBook);
+		panelBook.setLayout(new GridLayout(0, 3, 0, 0));
+		
+		JLabel lableBookYourTrip = new JLabel("Book your trip:");
+		panelBook.add(lableBookYourTrip);
+		
+		JLabel label = new JLabel("");
+		panelBook.add(label);
+		
+		JLabel label_1 = new JLabel("");
+		panelBook.add(label_1);
+		
+		JLabel label_2 = new JLabel("");
+		panelBook.add(label_2);
+		
+		JLabel lableSSN = new JLabel("SSN:");
+		panelBook.add(lableSSN);
+		
+		tfSSN = new JTextField();
+		panelBook.add(tfSSN);
+		tfSSN.setColumns(10);
+		
+		JLabel label_3 = new JLabel("");
+		panelBook.add(label_3);
+		
+		JLabel lableEmail = new JLabel("E-mail:");
+		panelBook.add(lableEmail);
+		
+		tfEmail = new JTextField();
+		panelBook.add(tfEmail);
+		tfEmail.setColumns(10);
+		
+		JLabel label_4 = new JLabel("");
+		panelBook.add(label_4);
+		
+		JLabel LableNrOfP = new JLabel("Nr. of people");
+		panelBook.add(LableNrOfP);
+		
+		tfNrOfP = new JTextField();
+		panelBook.add(tfNrOfP);
+		tfNrOfP.setColumns(10);
+		
+		JLabel label_5 = new JLabel("");
+		panelBook.add(label_5);
+		
+		JLabel labelTrip = new JLabel("Trip");
+		panelBook.add(labelTrip);
+		
+		tfTrip = new JTextField();
+		tfTrip.setEnabled(false);
+		panelBook.add(tfTrip);
+		tfTrip.setColumns(10);
+		
+		JLabel lable_6 = new JLabel("");
+		panelBook.add(lable_6
+				);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(false);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(false);
+			}
+		});
+		panelBook.add(btnSubmit);
+		panelBook.setVisible(false);
 
 		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(5, 5, 424, 25);
+		toolBar.setFloatable(false);
+		toolBar.setBounds(38, 0, 424, 26);
 		contentPane.add(toolBar);
 
 		Button btnTbAdmin = new Button("Admin");
 		btnTbAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(false);
+				panelAdmin.setVisible(true);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(false);
 			}
 		});
+		toolBar.add(btnTbAdmin);
 
 		Button btnTbTrips = new Button("Trip");
 		btnTbTrips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(true);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(false);
 			}
 		});
 		toolBar.add(btnTbTrips);
-		toolBar.add(btnTbAdmin);
+		
+		JButton btnBookTrip = new JButton("Book trip");
+		btnBookTrip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelTrip.setVisible(false);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(false);
+				panelBook.setVisible(true);
+			}
+		});
+		btnBookTrip.setBounds(153, 191, 117, 29);
+		panelTrip.add(btnBookTrip);
+	
 
 		Button btnTbSearch = new Button("Search");
 		btnTbSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				panelTrip.setVisible(false);
+				panelAdmin.setVisible(false);
+				panelSearch.setVisible(true);
+				panelBook.setVisible(false);
 			}
 		});
 		toolBar.add(btnTbSearch);
-
-		JPanel pBook = new JPanel();
-		pBook.setBounds(0, 0, 0, 0);
-		contentPane.add(pBook);
-		GridBagLayout gbl_pBook = new GridBagLayout();
-		gbl_pBook.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_pBook.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pBook.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_pBook.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		pBook.setLayout(gbl_pBook);
-
-		JLabel lBookYourTrip = new JLabel("Book your trip");
-		GridBagConstraints gbc_lBookYourTrip = new GridBagConstraints();
-		gbc_lBookYourTrip.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_lBookYourTrip.insets = new Insets(0, 0, 5, 5);
-		gbc_lBookYourTrip.gridx = 1;
-		gbc_lBookYourTrip.gridy = 0;
-		pBook.add(lBookYourTrip, gbc_lBookYourTrip);
-
-		JLabel lSSN = new JLabel("SSN:");
-		GridBagConstraints gbc_lSSN = new GridBagConstraints();
-		gbc_lSSN.insets = new Insets(0, 0, 5, 5);
-		gbc_lSSN.anchor = GridBagConstraints.EAST;
-		gbc_lSSN.gridx = 1;
-		gbc_lSSN.gridy = 1;
-		pBook.add(lSSN, gbc_lSSN);
-
-		tfSSN = new JTextField();
-		GridBagConstraints gbc_tfSSN = new GridBagConstraints();
-		gbc_tfSSN.insets = new Insets(0, 0, 5, 0);
-		gbc_tfSSN.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfSSN.gridx = 2;
-		gbc_tfSSN.gridy = 1;
-		pBook.add(tfSSN, gbc_tfSSN);
-		tfSSN.setColumns(10);
-
-		JLabel lEmail = new JLabel("E-mail:");
-		GridBagConstraints gbc_lEmail = new GridBagConstraints();
-		gbc_lEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_lEmail.anchor = GridBagConstraints.EAST;
-		gbc_lEmail.gridx = 1;
-		gbc_lEmail.gridy = 2;
-		pBook.add(lEmail, gbc_lEmail);
-
-		tfEmail = new JTextField();
-		GridBagConstraints gbc_tfEmail = new GridBagConstraints();
-		gbc_tfEmail.insets = new Insets(0, 0, 5, 0);
-		gbc_tfEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfEmail.gridx = 2;
-		gbc_tfEmail.gridy = 2;
-		pBook.add(tfEmail, gbc_tfEmail);
-		tfEmail.setColumns(10);
-
-		JButton btnBook = new JButton("Book!");
-		btnBook.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-
-		JLabel lNrOfPeople = new JLabel("Nr. of people:");
-		GridBagConstraints gbc_lNrOfPeople = new GridBagConstraints();
-		gbc_lNrOfPeople.insets = new Insets(0, 0, 5, 5);
-		gbc_lNrOfPeople.anchor = GridBagConstraints.EAST;
-		gbc_lNrOfPeople.gridx = 1;
-		gbc_lNrOfPeople.gridy = 3;
-		pBook.add(lNrOfPeople, gbc_lNrOfPeople);
-
-		tfNrOfPeople = new JTextField();
-		GridBagConstraints gbc_tfNrOfPeople = new GridBagConstraints();
-		gbc_tfNrOfPeople.insets = new Insets(0, 0, 5, 0);
-		gbc_tfNrOfPeople.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfNrOfPeople.gridx = 2;
-		gbc_tfNrOfPeople.gridy = 3;
-		pBook.add(tfNrOfPeople, gbc_tfNrOfPeople);
-		tfNrOfPeople.setColumns(10);
-
-		JLabel lblFer = new JLabel("Trip:");
-		GridBagConstraints gbc_lblFer = new GridBagConstraints();
-		gbc_lblFer.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFer.anchor = GridBagConstraints.EAST;
-		gbc_lblFer.gridx = 1;
-		gbc_lblFer.gridy = 4;
-		pBook.add(lblFer, gbc_lblFer);
-
-		tfTrip = new JTextField();
-		GridBagConstraints gbc_tfTrip = new GridBagConstraints();
-		gbc_tfTrip.insets = new Insets(0, 0, 5, 0);
-		gbc_tfTrip.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfTrip.gridx = 2;
-		gbc_tfTrip.gridy = 4;
-		pBook.add(tfTrip, gbc_tfTrip);
-		tfTrip.setColumns(10);
-		GridBagConstraints gbc_btnBook = new GridBagConstraints();
-		gbc_btnBook.insets = new Insets(0, 0, 5, 0);
-		gbc_btnBook.anchor = GridBagConstraints.EAST;
-		gbc_btnBook.gridx = 2;
-		gbc_btnBook.gridy = 5;
-		pBook.add(btnBook, gbc_btnBook);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(5, 30, 424, 226);
-		contentPane.add(panel);
-		panel.setLayout(null);
 	}
 }
