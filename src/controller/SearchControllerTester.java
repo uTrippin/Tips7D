@@ -19,12 +19,11 @@ public class SearchControllerTester {
 		searchPm5 = new String[] {"", "", "", "Reykjavík", ""};
 		
 		Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1);
-		//Trip trip2 = new Trip("Bless", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1);
-		Trip trip3 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1);
+		Trip trip2 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1);
 				
 		list1 = new Trip[] {trip1};
 		list2 = new Trip[] {};
-		list3 = new Trip[] {trip1, trip3};
+		list3 = new Trip[] {trip1, trip2};
 	}
 	
 	@After

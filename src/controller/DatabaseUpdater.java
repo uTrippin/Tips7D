@@ -2,7 +2,6 @@ package controller;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +15,7 @@ public class DatabaseUpdater {
 	private String USER = "kuluser";
 	private String PASS = "kulpassword";
 	
-	public DatabaseUpdater(){
+	public DatabaseUpdater() {
 		System.out.println("-------- PostgreSQL "
 				+ "JDBC Connection Testing ------------");
 
@@ -55,12 +54,9 @@ public class DatabaseUpdater {
 			System.out.println("Failed to make connection!");
 		}
 	}
-	
-	public static void main(String[] argv) {
-	
-	}
+		
 	//Function that adds a booking to the table BOOKINGS
-	public boolean insertBooking(BookingModel booking){
+	public boolean insertBooking(BookingModel booking) {
 		String insertTableSQL = "INSERT INTO BOOKING"
 				+ "(tripId, bookerEmail, numPeople, bookerSSN) VALUES"
 				+ "(?,?,?,?)";
@@ -82,31 +78,31 @@ public class DatabaseUpdater {
 	}
 	
 	//Function that adds a booking to the table BOOKINGS
-		public void insertTrip(Trip trip){
-			String insertTableSQL = "INSERT INTO TRIP"
-					+ "(tripName, dateBegin, dateEnd, description, maxPeople, minPeople, location, price) VALUES"
-					+ "(?,?,?,?,?,?,?,?)";
-			PreparedStatement preparedStatement;
-			try {
-				preparedStatement = connection.prepareStatement(insertTableSQL);
-				preparedStatement.setString(1, trip.getTripName());
-				preparedStatement.setDate(2, (Date) trip.getDateBegin());
-				preparedStatement.setDate(3, (Date) trip.getDateEnd());
-				preparedStatement.setString(4, trip.getDescription());
-				preparedStatement.setInt(5, trip.getMaxPeople());
-				preparedStatement.setInt(6, trip.getMinPeople());
-				preparedStatement.setString(7, trip.getLocation());
-				preparedStatement.setInt(8, trip.getPrice());
-				//execute insert SQL statement
-				preparedStatement .executeUpdate();
-				System.out.print("Awwww yeeeeaaaaaaaah");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public void insertTrip(Trip trip) {
+		String insertTableSQL = "INSERT INTO TRIP"
+				+ "(tripName, dateBegin, dateEnd, description, maxPeople, minPeople, location, price) VALUES"
+				+ "(?,?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(insertTableSQL);
+			preparedStatement.setString(1, trip.getTripName());
+			preparedStatement.setDate(2, (Date) trip.getDateBegin());
+			preparedStatement.setDate(3, (Date) trip.getDateEnd());
+			preparedStatement.setString(4, trip.getDescription());
+			preparedStatement.setInt(5, trip.getMaxPeople());
+			preparedStatement.setInt(6, trip.getMinPeople());
+			preparedStatement.setString(7, trip.getLocation());
+			preparedStatement.setInt(8, trip.getPrice());
+			//execute insert SQL statement
+			preparedStatement .executeUpdate();
+			System.out.print("Awwww yeeeeaaaaaaaah");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 	
-	public void createTables(){
+	public void createTables() {
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
