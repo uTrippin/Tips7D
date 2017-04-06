@@ -8,7 +8,7 @@ public class BookingController {
 	DatabaseUpdater dbUpdater = new DatabaseUpdater();
 
 	
-	public boolean bookTrip(String[] tripInfo) { // tripInfo er listi af tripId, bookerEmail, numPEople, bookerSSN
+	public boolean bookTrip(String[] tripInfo) { // tripInfo er listi af tripId, bookerEmail, numPeople, bookerSSN
 		
 		boolean bookingComplete = false;
 		

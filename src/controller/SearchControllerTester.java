@@ -3,13 +3,11 @@ package controller;
 import org.junit.*;
 import java.sql.Date;
 import java.text.ParseException;
-import java.util.Arrays;
 import static org.junit.Assert.*;
 import model.Trip;
 
 public class SearchControllerTester {
 	private Trip[] list1, list2, list3;
-	private DatabaseRetrival db;
 	private String[] searchPm1, searchPm2, searchPm3, searchPm4, searchPm5;
 
 	@Before
@@ -21,14 +19,12 @@ public class SearchControllerTester {
 		searchPm5 = new String[] {"", "", "", "Reykjavík", ""};
 		
 		Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1);
-		Trip trip2 = new Trip("Bless", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1);
+		//Trip trip2 = new Trip("Bless", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1);
 		Trip trip3 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1);
 				
 		list1 = new Trip[] {trip1};
 		list2 = new Trip[] {};
 		list3 = new Trip[] {trip1, trip3};
-		
-		db = new DatabaseRetrival();
 	}
 	
 	@After
@@ -42,7 +38,6 @@ public class SearchControllerTester {
 		list1 = null;
 		list2 = null;
 		list3 = null;
-		db = null;
 	}
 	
 	@Test
