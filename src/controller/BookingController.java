@@ -14,11 +14,11 @@ import model.Trip;
 
 public class BookingController {
 	
-	DatabaseRetrival dbRetrival = new DatabaseRetrival();
-	DatabaseUpdater dbUpdater = new DatabaseUpdater();
+	private static DatabaseRetrival dbRetrival = new DatabaseRetrival();
+	private static DatabaseUpdater dbUpdater = new DatabaseUpdater();
 
 	
-	public boolean bookTrip(String[] tripInfo) { // tripInfo er listi af tripId, bookerEmail, numPeople, bookerSSN
+	public static boolean bookTrip(String[] tripInfo) { // tripInfo er listi af tripId, bookerEmail, numPeople, bookerSSN
 		
 		boolean bookingComplete = false;
 		
@@ -27,13 +27,13 @@ public class BookingController {
 		bookingComplete = dbUpdater.insertBooking(booking);
 				
 		if(bookingComplete) {
-			sendVerification(Integer.parseInt(tripInfo[1]));
+			sendVerification(Integer.parseInt(tripInfo[0]));
 		}
 		
 		return bookingComplete;	
 	}
 	
-	public void sendVerification(int tripId) {
+	public static void sendVerification(int tripId) {
 			
 		BookingModel[] tripBookings = dbRetrival.queryTripBooking(tripId);
 		
@@ -42,7 +42,7 @@ public class BookingController {
 		}
 	}
 	
-	public void contact(String email, int tripId) {
+	public static void contact(String email, int tripId) {
 
         final String username = "utrippin7d@gmail.com";
         final String password = "kulpassword";
