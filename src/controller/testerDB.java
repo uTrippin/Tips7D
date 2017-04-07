@@ -15,7 +15,7 @@ public class testerDB {
 		DatabaseRetrival dbR = new DatabaseRetrival();
 		
 		System.out.println(dbR.simpleQuery(".*"));
-		
+
 		/*Date dateBegin = new Date(0);
 		Date dateEnd = new Date(200000);
 		
@@ -31,6 +31,24 @@ public class testerDB {
 		for(int i=0; i < E.length; i++) {
 			System.out.println(E[i].getBookerEmail());
 		}*/
+		
+		/*BookingModel booking1 = new BookingModel(-1, -1, "kariskarason@gmail.com", 1, 1234567890);
+		BookingModel booking2 = new BookingModel(-1, -1, "melkorkamj@gmail.com", 1, 1234567890);
+		BookingModel booking3 = new BookingModel(-1, -1, "valagerdursigfinnsdottir@gmail.com", 1, 1234567890);
+
+		dbU.insertBooking(booking1);
+		dbU.insertBooking(booking2);
+		dbU.insertBooking(booking3); */
+		
+		BookingController bc = new BookingController();
+		
+		try {
+			bc.sendVerification(-1);
+		}
+		catch(Exception e) {
+			// do nothing
+		}
+		
 
 	}
 }

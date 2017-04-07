@@ -79,6 +79,31 @@ public class DatabaseRetrival {
 		return tripList;	
 	}
 	
+	//Queries TRIP table to get info about a trip
+	public Trip[] queryTripInfo(int tripId) {
+		Trip [] tripList;
+		
+		tripId = 1; // MUNA AÐ COMMENTA ÚT!!!
+		
+		try{		
+			String selectSQL = "SELECT * FROM TRIP WHERE tripId = ?";
+			PreparedStatement preparedStatement;
+
+			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
+			preparedStatement.setInt(1, tripId);
+			ResultSet rs = preparedStatement.executeQuery();
+			tripList = createTriplist(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			tripList = new Trip[0];
+		}
+		
+		return tripList;	
+	}
+	
 	//Creates a list of Trip objects
 	private Trip[] createTriplist(ResultSet rs) {
 		int n = 0;
