@@ -6,7 +6,7 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.EmptyBorder; 
 
 import model.Trip;
 import model.SearchModel;

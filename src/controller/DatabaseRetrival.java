@@ -14,7 +14,7 @@ public class DatabaseRetrival {
 	private Connection connection = null; //Database connection
 	
 	//Constructor for the DatabaseRetrival
-	public DatabaseRetrival(){
+	public DatabaseRetrival() {
 		//Connect to the postgresql driver
 		try {
 
@@ -50,7 +50,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Querying the TRIP table
-	public Trip[] queryTrip(SearchModel search){
+	public Trip[] queryTrip(SearchModel search) {
 		Trip [] tripList;
 		
 		try{		
@@ -79,8 +79,33 @@ public class DatabaseRetrival {
 		return tripList;	
 	}
 	
+	//Queries TRIP table to get info about a trip
+	public Trip[] queryTripInfo(int tripId) {
+		Trip [] tripList;
+		
+		tripId = 1; // MUNA AÐ COMMENTA ÚT!!!
+		
+		try{		
+			String selectSQL = "SELECT * FROM TRIP WHERE tripId = ?";
+			PreparedStatement preparedStatement;
+
+			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
+			preparedStatement.setInt(1, tripId);
+			ResultSet rs = preparedStatement.executeQuery();
+			tripList = createTriplist(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			tripList = new Trip[0];
+		}
+		
+		return tripList;	
+	}
+	
 	//Creates a list of Trip objects
-	private Trip[] createTriplist(ResultSet rs){
+	private Trip[] createTriplist(ResultSet rs) {
 		int n = 0;
 		try{
 			//Get the length of the results set
@@ -119,7 +144,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries BOOKING table to get info about a person
-	public BookingModel[] queryPersonBooking(String email){
+	public BookingModel[] queryPersonBooking(String email) {
 		BookingModel [] bookingList;
 		
 		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
@@ -141,7 +166,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries the BOOKING table to get info about a trip
-	public BookingModel[] queryTripBooking(int tripId){
+	public BookingModel[] queryTripBooking(int tripId) {
 		BookingModel [] bookingList;
 		
 		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
@@ -163,7 +188,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Creates a list of BookingModel objects 
-	private BookingModel[] createBookinglist(ResultSet rs){
+	private BookingModel[] createBookinglist(ResultSet rs) {
 		BookingModel[] bookingList;
 		//Get the length of the results set
 		int n = 0;
@@ -201,7 +226,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries ADMIN table to get info about admin
-	public String queryAdmin(String adminId){
+	public String queryAdmin(String adminId) {
 		String pw = "";
 		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
 		PreparedStatement preparedStatement;
@@ -223,7 +248,7 @@ public class DatabaseRetrival {
 	}
 	
 	//test function
-	public String simpleQuery(String a){
+	public String simpleQuery(String a) {
 		try{		
 			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ '.*'";
 			PreparedStatement preparedStatement;
@@ -241,9 +266,7 @@ public class DatabaseRetrival {
 			e.printStackTrace();
 		}
 		String b = "blabla";
-		return b;
-		
-			
+		return b;			
 	}
 
 }
