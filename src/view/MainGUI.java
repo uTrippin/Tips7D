@@ -2,11 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder; 
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import model.Trip;
 import model.SearchModel;
@@ -17,6 +18,8 @@ import model.BookingModel;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
@@ -51,6 +54,7 @@ import java.awt.Font;
 import java.awt.Scrollbar;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class MainGUI extends JFrame {
 
@@ -71,6 +75,15 @@ public class MainGUI extends JFrame {
 	private JPanel panelBook;
 	private JTextField tfSearch;
 	private Trip currentTrip;
+	private JTextField tfUsername;
+	private JTextField tfPw;
+	private JTextField tfBiginDate;
+	private JTextField tfPrice;
+	private JTextField tfTripName;
+	private JTextField tfLocation;
+	private JTextField tfMinP;
+	private JTextField tfEndDate;
+	private JTextField tfMaxP;
 
 
 	public void showTrips(){
@@ -107,9 +120,9 @@ public class MainGUI extends JFrame {
 	 * @throws ParseException 
 	 */
 	public MainGUI() throws ParseException {
-		setMinimumSize(new Dimension(500, 300));
+		setMinimumSize(new Dimension(1000, 700));
 		setSize(new Dimension(500, 1000));
-		setMaximumSize(new Dimension(1000, 1500));
+		setMaximumSize(new Dimension(100000, 650000));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -154,9 +167,38 @@ public class MainGUI extends JFrame {
 		panelAdmin.setLayout(null);
 		panelAdmin.setVisible(false);
 		
-		JLabel lblNewLabel = new JLabel("Admin");
+		JLabel lblNewLabel = new JLabel("Log in:");
 		lblNewLabel.setBounds(189, 6, 61, 16);
 		panelAdmin.add(lblNewLabel);
+		
+		tfUsername = new JTextField();
+		tfUsername.setBounds(180, 58, 200, 26);
+		panelAdmin.add(tfUsername);
+		tfUsername.setColumns(10);
+		
+		tfPw = new JTextField();
+		tfPw.setBounds(180, 106, 200, 26);
+		panelAdmin.add(tfPw);
+		tfPw.setColumns(10);
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setBounds(44, 58, 92, 26);
+		panelAdmin.add(lblUsername);
+		
+		JLabel lblNewLabel_2 = new JLabel("Password:");
+		lblNewLabel_2.setBounds(44, 106, 92, 26);
+		panelAdmin.add(lblNewLabel_2);
+		
+		JButton btnLogin = new JButton("Log in");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username = tfUsername.getText();
+				String password = tfPw.getText();
+				Admin.logIn(username, password);
+			}
+		});
+		btnLogin.setBounds(128, 183, 168, 37);
+		panelAdmin.add(btnLogin);
 		
 		JButton btnSearshTrip = new JButton("SearchTrip");
 		btnSearshTrip.addActionListener(new ActionListener() {
@@ -296,7 +338,7 @@ public class MainGUI extends JFrame {
 					currentTrip = tripList[j];
 				}
 			});
-			buttons[i].setBounds(153, 191 + i*200, 117, 29);
+			buttons[i].setBounds(153, 191, 117, 29);
 			panelTrip.add(buttons[i]);
 			
 		}
@@ -339,5 +381,94 @@ public class MainGUI extends JFrame {
 											}
 										});
 										toolBar.add(btnTbSearch);
+										
+										JPanel panelAddTrip = new JPanel();
+										panelAddTrip.setBounds(38, 26, 424, 606);
+										contentPane.add(panelAddTrip);
+										panelAddTrip.setLayout(null);
+										
+										tfLocation = new JTextField();
+										tfLocation.setBounds(250, 200, 130, 26);
+										tfLocation.setColumns(10);
+										panelAddTrip.add(tfLocation);
+										
+										tfMinP = new JTextField();
+										tfMinP.setBounds(250, 170, 130, 26);
+										tfMinP.setColumns(10);
+										panelAddTrip.add(tfMinP);
+										
+										tfMaxP = new JTextField();
+										tfMaxP.setColumns(10);
+										tfMaxP.setBounds(250, 140, 130, 26);
+										panelAddTrip.add(tfMaxP);
+										
+										tfPrice = new JTextField();
+										tfPrice.setBounds(250, 110, 130, 26);
+										tfPrice.setColumns(10);
+										panelAddTrip.add(tfPrice);
+										
+										MaskFormatter mf1 = new MaskFormatter("####-(#)#-(#)#");
+										mf1.setPlaceholderCharacter('_');
+									    JFormattedTextField tfEndDate = new JFormattedTextField(mf1);
+										tfEndDate.setBounds(250, 80, 130, 26);
+										tfEndDate.setColumns(10);
+										panelAddTrip.add(tfEndDate);
+															
+									    JFormattedTextField tfBeginDate = new JFormattedTextField(mf1);
+										tfBeginDate.setBounds(250, 50, 130, 26);
+										panelAddTrip.add(tfBeginDate);
+										tfBeginDate.setColumns(10);
+										
+										tfTripName = new JTextField();
+										tfTripName.setBounds(250, 20, 130, 26);
+										tfTripName.setColumns(10);
+										panelAddTrip.add(tfTripName);
+										
+										JLabel lblTripName = new JLabel("Trip name:");
+										lblTripName.setBounds(150, 30, 61, 16);
+										panelAddTrip.add(lblTripName);
+										
+										JLabel lblBegining = new JLabel("Begining date");
+										lblBegining.setBounds(150, 60, 61, 16);
+										panelAddTrip.add(lblBegining);
+										
+										JLabel lblEndDate = new JLabel("End date:");
+										lblEndDate.setBounds(150, 90, 61, 16);
+										panelAddTrip.add(lblEndDate);
+										
+										JLabel lblDescription = new JLabel("Description:");
+										lblDescription.setBounds(50, 230, 82, 16);
+										panelAddTrip.add(lblDescription);
+										
+										JTextArea taDescription = new JTextArea();
+										taDescription.setBounds(26, 253, 379, 223);
+										panelAddTrip.add(taDescription);
+										
+										JLabel lblMaxPeople = new JLabel("Max people:");
+										lblMaxPeople.setBounds(150, 140, 61, 16);
+										panelAddTrip.add(lblMaxPeople);
+										
+										JLabel lblMinPeople = new JLabel("Min people:");
+										lblMinPeople.setBounds(150, 170, 61, 16);
+										panelAddTrip.add(lblMinPeople);
+										
+										JLabel lblLocation = new JLabel("Location:");
+										lblLocation.setBounds(150, 200, 61, 16);
+										panelAddTrip.add(lblLocation);
+										
+										JLabel lblPrice = new JLabel("Price:");
+										lblPrice.setBounds(150, 110, 61, 16);
+										panelAddTrip.add(lblPrice);
+										
+										JButton btnAddTrip = new JButton("Add trip");
+										btnAddTrip.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												Trip trip = new Trip(tfTripName.getText(), Date.valueOf(tfBeginDate.getText()), Date.valueOf(tfEndDate.getText()), taDescription.getText(), Integer.parseInt(tfMaxP.getText()), Integer.parseInt(tfMinP.getText()), tfLocation.getText(), Integer.parseInt(tfPrice.getText()) );
+												Admin.addTrip()
+											}
+										});
+										btnAddTrip.setBounds(153, 500, 117, 29);
+										panelAddTrip.add(btnAddTrip);
+									
 	}
 }
