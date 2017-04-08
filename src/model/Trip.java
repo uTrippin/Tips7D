@@ -13,8 +13,9 @@ public class Trip {
 	private String location;
 	private int price;
 	private int tripId;
+	private int numBooking;
 	
-	public Trip(String tripName, Date dateBegin, Date dateEnd, String description, int maxPeople, int minPeople, String location, int price, int tripId) {
+	public Trip(String tripName, Date dateBegin, Date dateEnd, String description, int maxPeople, int minPeople, String location, int price, int tripId, int numBooking) {
 		this.tripName = tripName;
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
@@ -24,6 +25,7 @@ public class Trip {
 		this.location = location;
 		this.price = price;
 		this.tripId = tripId;
+		this.numBooking = numBooking;
 	}
 	
 	public String getTripName() {
@@ -62,6 +64,10 @@ public class Trip {
 		return tripId;
 	}
 	
+	public int getNumBooking() {
+		return numBooking;
+	}
+	
 	private void setTripNme(String tripName) {
 		this.tripName = tripName;
 	}
@@ -96,5 +102,9 @@ public class Trip {
 	
 	private void setTripId(int tripId) {
 		this.tripId = tripId;
+	}
+	
+	private void setNumBooking(int numBooking) {
+		this.numBooking = numBooking;
 	}
 }

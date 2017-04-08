@@ -15,66 +15,63 @@ public class DatabaseUpdater {
 	private String URL = "jdbc:postgresql://kuldbinstance.czsqr6wtrtap.us-west-2.rds.amazonaws.com:5432/kuldb";
 	private String USER = "kuluser";
 	private String PASS = "kulpassword";
+	private DatabaseRetrival dbR = new DatabaseRetrival();
 	
 	public DatabaseUpdater() {
-		System.out.println("-------- PostgreSQL "
-				+ "JDBC Connection Testing ------------");
 
 		try {
 
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
-
-			System.out.println("Where is your PostgreSQL JDBC Driver? "
-					+ "Include in your library path!");
 			e.printStackTrace();
 			return;
 
 		}
-
-		System.out.println("PostgreSQL JDBC Driver Registered!");
-
-
 		
 		try {
 
 			connection = DriverManager.getConnection(URL, USER, PASS);
 
 		} catch (SQLException e) {
-
-			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
 			return;
 
 		}
-
-		if (connection != null) {
-			System.out.println("You made it, take control your database now!");
-		} else {
-			System.out.println("Failed to make connection!");
-		}
 	}
 		
 	//Function that adds a booking to the table BOOKINGS
-	public boolean insertBooking(BookingModel booking) {
+	public int insertBooking(BookingModel booking) { // 0 táknar bókun tókst, 1 táknar ekki næg pláss, 2 táknar villa kom upp
 		String insertTableSQL = "INSERT INTO BOOKING"
 				+ "(tripId, bookerEmail, numPeople, bookerSSN) VALUES"
 				+ "(?,?,?,?)";
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement(insertTableSQL);
-			preparedStatement.setInt(1, booking.getTripId());
-			preparedStatement.setString(2, booking.getBookerEmail());
-			preparedStatement.setInt(3, booking.getNumPeople());
-			preparedStatement.setInt(4, booking.getBookerSSN());
-			//execute insert SQL statement
-			preparedStatement.executeUpdate();
-			return true;
+			Trip[] tripList = dbR.queryTripInfo(booking.getTripId());
+			
+			if(booking.getNumPeople() + tripList[0].getNumBooking() <= tripList[0].getMaxPeople()) {
+				preparedStatement = connection.prepareStatement(insertTableSQL);
+				preparedStatement.setInt(1, booking.getTripId());
+				preparedStatement.setString(2, booking.getBookerEmail());
+				preparedStatement.setInt(3, booking.getNumPeople());
+				preparedStatement.setInt(4, booking.getBookerSSN());
+				//execute insert SQL statement
+				preparedStatement.executeUpdate();
+				
+				
+				String updateTableSQL = "UPDATE TRIP SET numBooking = numBooking + ?";
+				preparedStatement = connection.prepareStatement(updateTableSQL);
+				preparedStatement.setInt(1, booking.getNumPeople());
+				preparedStatement.executeUpdate();
+				return 0;
+			}
+			else {
+				return 1;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return 2;
 		}
 	}
 	
@@ -96,7 +93,6 @@ public class DatabaseUpdater {
 			preparedStatement.setInt(8, trip.getPrice());
 			//execute insert SQL statement
 			preparedStatement.executeUpdate();
-			System.out.print("Awwww yeeeeaaaaaaaah");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,7 +111,6 @@ public class DatabaseUpdater {
 			preparedStatement.setString(3, salt);
 			//execute insert SQL statement
 			preparedStatement.executeUpdate();
-			System.out.print("Awwww yeeeeaaaaaaaah");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,7 +121,11 @@ public class DatabaseUpdater {
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
-			//String sql0 = "DROP TABLE ADMIN";
+			
+			//String sql = "DROP TABLE TRIP";
+			//stmt.executeUpdate(sql);
+			
+			//String sql0 = "DROP TABLE BOOKING";
 			//stmt.executeUpdate(sql0);
 		    /*String sql1 = "CREATE TABLE TRIP " +
 		                   	"(tripId SERIAL PRIMARY KEY, " +
@@ -137,16 +136,17 @@ public class DatabaseUpdater {
 		                   	" maxPeople INT NOT NULL, " +
 		                   	" minPeople INT NOT NULL, " +
 		                   	" location VARCHAR(256) NOT NULL, " +
-		                   	" price INT NOT NULL)";
+		                   	" price INT NOT NULL, " +
+		                   	" numBooking INT DEFAULT 0)";
 		                   
 		      stmt.executeUpdate(sql1);*/
 		      
-		      String sql2 = "CREATE TABLE ADMIN " +
+		      /*String sql2 = "CREATE TABLE ADMIN " +
 	                   		"(adminId VARCHAR(256) PRIMARY KEY, " +
 	                   		" adminPassword VARCHAR(256) NOT NUll, " +
 	                   		" salt VARCHAR(256) NOT NULL)";
 		      
-		      stmt.executeUpdate(sql2);
+		      stmt.executeUpdate(sql2);*/
 		      
 		      /*String sql3 = "CREATE TABLE BOOKING " +
 		    		  		"(bookingId SERIAL PRIMARY KEY, " +

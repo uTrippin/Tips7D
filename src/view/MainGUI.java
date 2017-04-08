@@ -54,7 +54,10 @@ import java.awt.Font;
 import java.awt.Scrollbar;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+<<<<<<< HEAD
 import javax.swing.JTextArea;
+=======
+>>>>>>> 26ad6209c27a873fe6827bb06e053ea9d3d47eb7
 
 public class MainGUI extends JFrame {
 
@@ -338,7 +341,7 @@ public class MainGUI extends JFrame {
 					currentTrip = tripList[j];
 				}
 			});
-			buttons[i].setBounds(153, 191, 117, 29);
+			buttons[i].setBounds(153, 191 + i*200, 117, 29);
 			panelTrip.add(buttons[i]);
 			
 		}
