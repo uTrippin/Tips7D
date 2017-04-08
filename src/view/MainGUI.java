@@ -137,7 +137,7 @@ public class MainGUI extends JFrame {
 		
 		JPanel panelTrip = new JPanel();
 		panelTrip.setName("Day Trips");
-		panelTrip.setBounds(38, 26, 424, 226);
+		panelTrip.setBounds(38, 26, 424, 646);
 		contentPane.add(panelTrip);
 		panelTrip.setLayout(null);
 		panelTrip.setVisible(false);
@@ -240,9 +240,9 @@ public class MainGUI extends JFrame {
 		lblTripName.setBounds(150, 30, 61, 16);
 		panelAddTrip.add(lblTripName);
 		
-		JLabel lblBegining = new JLabel("Begining date");
-		lblBegining.setBounds(150, 60, 61, 16);
-		panelAddTrip.add(lblBegining);
+		JLabel lblBeginning = new JLabel("Beginning date");
+		lblBeginning.setBounds(150, 60, 61, 16);
+		panelAddTrip.add(lblBeginning);
 		
 		JLabel lblEndDate = new JLabel("End date:");
 		lblEndDate.setBounds(150, 90, 61, 16);
