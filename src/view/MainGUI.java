@@ -54,14 +54,8 @@ import java.awt.Font;
 import java.awt.Scrollbar;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import javax.swing.JTextArea;
-=======
->>>>>>> 26ad6209c27a873fe6827bb06e053ea9d3d47eb7
-=======
 import javax.swing.JTextArea;
->>>>>>> 81add702d370b6c81f70d86ee12e2210bc88a313
 
 public class MainGUI extends JFrame {
 
@@ -447,15 +441,12 @@ public class MainGUI extends JFrame {
 										lblDescription.setBounds(50, 230, 82, 16);
 										panelAddTrip.add(lblDescription);
 										
-<<<<<<< HEAD
 										JTextArea taDescriptopn = new JTextArea();
 										taDescriptopn.setBounds(26, 253, 379, 223);
 										panelAddTrip.add(taDescriptopn);
-=======
 										JTextArea taDescription = new JTextArea();
 										taDescription.setBounds(26, 253, 379, 223);
 										panelAddTrip.add(taDescription);
->>>>>>> 81add702d370b6c81f70d86ee12e2210bc88a313
 										
 										JLabel lblMaxPeople = new JLabel("Max people:");
 										lblMaxPeople.setBounds(150, 140, 61, 16);
@@ -476,11 +467,7 @@ public class MainGUI extends JFrame {
 										JButton btnAddTrip = new JButton("Add trip");
 										btnAddTrip.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-												Trip trip = new Trip(tfTripName.getText(), Date.valueOf(tfBeginDate.getText()));
-=======
 												Trip trip = new Trip(tfTripName.getText(), Date.valueOf(tfBeginDate.getText()), Date.valueOf(tfEndDate.getText()), taDescription.getText(), Integer.parseInt(tfMaxP.getText()), Integer.parseInt(tfMinP.getText()), tfLocation.getText(), Integer.parseInt(tfPrice.getText()) );
->>>>>>> 81add702d370b6c81f70d86ee12e2210bc88a313
 												Admin.addTrip()
 											}
 										});
