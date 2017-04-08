@@ -79,6 +79,29 @@ public class DatabaseRetrival {
 		return tripList;	
 	}
 	
+	//Queries TRIP table to get info about a trip
+		public Trip[] queryTripInfo(int tripId) {
+			Trip [] tripList;
+			
+			try{		
+				String selectSQL = "SELECT * FROM TRIP WHERE tripId = ?";
+				PreparedStatement preparedStatement;
+
+				preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+	                    ResultSet.CONCUR_UPDATABLE);
+				preparedStatement.setInt(1, tripId);
+				ResultSet rs = preparedStatement.executeQuery();
+				tripList = createTriplist(rs);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				tripList = new Trip[0];
+			}
+			
+			return tripList;	
+		}
+	
 	//Creates a list of Trip objects
 	private Trip[] createTriplist(ResultSet rs) {
 		int n = 0;
@@ -201,8 +224,8 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries ADMIN table to get info about admin
-	public String queryAdmin(String adminId) {
-		String pw = "";
+	public String[] queryAdmin(String adminId) {
+		String adminCred[] = new String[2];
 		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
 		PreparedStatement preparedStatement;
 		try {
@@ -211,7 +234,8 @@ public class DatabaseRetrival {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
-				pw = rs.getString("adminPassword");
+				adminCred[0] = rs.getString("adminPassword");
+				adminCred[1] = rs.getString("salt");
 			}
 			
 		} catch (SQLException e) {
@@ -219,29 +243,28 @@ public class DatabaseRetrival {
 			e.printStackTrace();
 		}
 		
-		return pw;
+		return adminCred;
 	}
 	
 	//test function
 	public String simpleQuery(String a) {
-		try{		
-			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ '.*'";
+			String s = "";
+			String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
 			PreparedStatement preparedStatement;
-
-			preparedStatement = connection.prepareStatement(selectSQL);
-			//preparedStatement.setString(1, "*");
-			ResultSet rs = preparedStatement.executeQuery();
-			while(rs.next()){
-				return rs.getString("tripName");
+			try {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, a);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				while (rs.next()) {
+					s = rs.getString("bookerSSN");
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return s;
 		}
-		String b = "blabla";
-		return b;			
-	}
 
 }

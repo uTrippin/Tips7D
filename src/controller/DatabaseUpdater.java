@@ -94,7 +94,26 @@ public class DatabaseUpdater {
 			preparedStatement.setString(7, trip.getLocation());
 			preparedStatement.setInt(8, trip.getPrice());
 			//execute insert SQL statement
-			preparedStatement .executeUpdate();
+			preparedStatement.executeUpdate();
+			System.out.print("Awwww yeeeeaaaaaaaah");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertAdmin(String username, String password, String salt){
+		String insertTableSQL = "INSERT INTO ADMIN"
+				+ "(adminId, adminPassword, salt) VALUES"
+				+ "(?,?,?)";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(insertTableSQL);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+			preparedStatement.setString(3, salt);
+			//execute insert SQL statement
+			preparedStatement.executeUpdate();
 			System.out.print("Awwww yeeeeaaaaaaaah");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -106,8 +125,8 @@ public class DatabaseUpdater {
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
-			String sql0 = "DROP TABLE BOOKING";
-			stmt.executeUpdate(sql0);
+			//String sql0 = "DROP TABLE ADMIN";
+			//stmt.executeUpdate(sql0);
 		    /*String sql1 = "CREATE TABLE TRIP " +
 		                   	"(tripId SERIAL PRIMARY KEY, " +
 		                   	" tripName VARCHAR(256) NOT NUll, " +
@@ -119,22 +138,23 @@ public class DatabaseUpdater {
 		                   	" location VARCHAR(256) NOT NULL, " +
 		                   	" price INT NOT NULL)";
 		                   
-		      stmt.executeUpdate(sql1);
+		      stmt.executeUpdate(sql1);*/
 		      
 		      String sql2 = "CREATE TABLE ADMIN " +
-	                   		"(adminId SERIAL PRIMARY KEY, " +
-	                   		" adminPassword VARCHAR(256) NOT NUll)";
+	                   		"(adminId VARCHAR(256) PRIMARY KEY, " +
+	                   		" adminPassword VARCHAR(256) NOT NUll, " +
+	                   		" salt VARCHAR(256) NOT NULL)";
 		      
-		      stmt.executeUpdate(sql2);*/
+		      stmt.executeUpdate(sql2);
 		      
-		      String sql3 = "CREATE TABLE BOOKING " +
+		      /*String sql3 = "CREATE TABLE BOOKING " +
 		    		  		"(bookingId SERIAL PRIMARY KEY, " +
 		    		  		"tripId INT NOT NUll, " +
 		    		  		"bookerEmail VARCHAR(256) NOT NULL, " + 
 		    		  		"numPeople INT NOT NULL, " +
 		    		  		"bookerSSN INT NOT NULL);";
 		      
-		      stmt.executeUpdate(sql3);
+		      stmt.executeUpdate(sql3);*/
 		      
 		   }catch(SQLException se){
 		      //Handle errors for JDBC

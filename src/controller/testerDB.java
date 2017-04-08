@@ -14,7 +14,11 @@ public class testerDB {
 		DatabaseUpdater dbU = new DatabaseUpdater();
 		DatabaseRetrival dbR = new DatabaseRetrival();
 		
-		System.out.println(dbR.simpleQuery(".*"));
+		//BookingModel bookz = dbR.queryPersonBooking("stellarut95@gmail.com")[0];
+		//Trip trip1 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1);
+		//BookingModel booking = new BookingModel(-1, -1, "stellarut95@gmail.com", 1, 1234567890);
+		//dbU.insertBooking(booking);
+		//System.out.println(dbR.simpleQuery(".*"));
 		
 		/*Date dateBegin = new Date(0);
 		Date dateEnd = new Date(200000);
@@ -31,6 +35,7 @@ public class testerDB {
 		for(int i=0; i < E.length; i++) {
 			System.out.println(E[i].getBookerEmail());
 		}*/
+		System.out.println(dbR.simpleQuery("ksk12@hi.is"));
 
 	}
 }
