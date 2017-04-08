@@ -21,9 +21,6 @@ public class DatabaseRetrival {
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
-
-			System.out.println("Where is your PostgreSQL JDBC Driver? "
-					+ "Include in your library path!");
 			e.printStackTrace();
 			return;
 		}
@@ -37,15 +34,8 @@ public class DatabaseRetrival {
 		try {
 			connection = DriverManager.getConnection(URL, USER, PASS);
 		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
 			return;
-		}
-
-		if (connection != null) {
-			System.out.println("You made it, take control your database now!");
-		} else {
-			System.out.println("Failed to make connection!");
 		}
 	}
 	
@@ -247,17 +237,17 @@ public class DatabaseRetrival {
 	}
 	
 	//test function
-	public String simpleQuery(String a) {
-		String s = "";
-		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
+	public String[] simpleQuery() {
+		String s[] = new String[100];
+		String selectSQL = "SELECT * FROM BOOKING";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, a);
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			int i = 0;
 			while (rs.next()) {
-				s = rs.getString("bookerSSN");
+				s[i] = rs.getString("bookerSSN") + " " + rs.getString("tripId") + " "  + rs.getString("bookerEmail") + " "  + rs.getString("numPeople");
+				i++;
 			}
 			
 		} catch (SQLException e) {

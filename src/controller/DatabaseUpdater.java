@@ -17,42 +17,25 @@ public class DatabaseUpdater {
 	private String PASS = "kulpassword";
 	
 	public DatabaseUpdater() {
-		System.out.println("-------- PostgreSQL "
-				+ "JDBC Connection Testing ------------");
 
 		try {
 
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
-
-			System.out.println("Where is your PostgreSQL JDBC Driver? "
-					+ "Include in your library path!");
 			e.printStackTrace();
 			return;
 
 		}
-
-		System.out.println("PostgreSQL JDBC Driver Registered!");
-
-
 		
 		try {
 
 			connection = DriverManager.getConnection(URL, USER, PASS);
 
 		} catch (SQLException e) {
-
-			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
 			return;
 
-		}
-
-		if (connection != null) {
-			System.out.println("You made it, take control your database now!");
-		} else {
-			System.out.println("Failed to make connection!");
 		}
 	}
 		
@@ -126,8 +109,8 @@ public class DatabaseUpdater {
 		Statement stmt = null;
 		try{
 			stmt = connection.createStatement();
-			//String sql0 = "DROP TABLE ADMIN";
-			//stmt.executeUpdate(sql0);
+			String sql0 = "DROP TABLE BOOKING";
+			stmt.executeUpdate(sql0);
 		    /*String sql1 = "CREATE TABLE TRIP " +
 		                   	"(tripId SERIAL PRIMARY KEY, " +
 		                   	" tripName VARCHAR(256) NOT NUll, " +
@@ -141,21 +124,21 @@ public class DatabaseUpdater {
 		                   
 		      stmt.executeUpdate(sql1);*/
 		      
-		      String sql2 = "CREATE TABLE ADMIN " +
+		      /*String sql2 = "CREATE TABLE ADMIN " +
 	                   		"(adminId VARCHAR(256) PRIMARY KEY, " +
 	                   		" adminPassword VARCHAR(256) NOT NUll, " +
 	                   		" salt VARCHAR(256) NOT NULL)";
 		      
-		      stmt.executeUpdate(sql2);
+		      stmt.executeUpdate(sql2);*/
 		      
-		      /*String sql3 = "CREATE TABLE BOOKING " +
+		      String sql3 = "CREATE TABLE BOOKING " +
 		    		  		"(bookingId SERIAL PRIMARY KEY, " +
 		    		  		"tripId INT NOT NUll, " +
 		    		  		"bookerEmail VARCHAR(256) NOT NULL, " + 
 		    		  		"numPeople INT NOT NULL, " +
 		    		  		"bookerSSN INT NOT NULL);";
 		      
-		      stmt.executeUpdate(sql3);*/
+		      stmt.executeUpdate(sql3);
 		      
 		   }catch(SQLException se){
 		      //Handle errors for JDBC

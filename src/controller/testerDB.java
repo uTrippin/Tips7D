@@ -14,5 +14,12 @@ public class testerDB {
 		DatabaseUpdater dbU = new DatabaseUpdater();
 		DatabaseRetrival dbR = new DatabaseRetrival();
 		
+		//dbU.createTables();
+		
+		String s[] = dbR.simpleQuery();
+		for(int i= 0; i< 10; i++){
+			System.out.println(s[i]);
+		}
+		
 	}
 }
