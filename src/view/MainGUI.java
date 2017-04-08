@@ -50,6 +50,7 @@ import java.awt.Label;
 import java.awt.Font;
 import java.awt.Scrollbar;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class MainGUI extends JFrame {
 
@@ -251,10 +252,6 @@ public class MainGUI extends JFrame {
 		tripsList.setBounds(376, 62, -334, 113);
 		panelTrip.add(tripsList);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(403, 6, 15, 214);
-		panelTrip.add(scrollBar);
-		
 		// Search for the trip's info
 		String searchParam[] = {"", "", "", "", ""};
 		Trip tripList[] = SearchController.findResults(searchParam);
@@ -299,7 +296,7 @@ public class MainGUI extends JFrame {
 					currentTrip = tripList[j];
 				}
 			});
-			buttons[i].setBounds(153, 191, 117, 29);
+			buttons[i].setBounds(153, 191 + i*200, 117, 29);
 			panelTrip.add(buttons[i]);
 			
 		}
