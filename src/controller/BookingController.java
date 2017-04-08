@@ -52,14 +52,12 @@ public class BookingController {
           });
 
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("utrippin7d@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(email));
             
             Trip[] tripInfo = dbRetrival.queryTripInfo(tripId);
-            System.out.println(tripInfo.length);
             
             message.setSubject("Booking confirmation");
             message.setText("Dear sir/madam," + "\n" + "\n"
@@ -80,7 +78,7 @@ public class BookingController {
             System.out.println("Done");
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            // do nothing
         }
     }
 }
