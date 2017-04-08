@@ -299,7 +299,6 @@ public class MainGUI extends JFrame {
 					panelAddTrip.setVisible(true);
 				}
 				else{
-					System.out.println("neineineinei");
 				}
 			}
 		});

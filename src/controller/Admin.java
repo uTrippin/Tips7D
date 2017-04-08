@@ -17,14 +17,12 @@ public class Admin {
 		char[] pwArray = password.toCharArray();
 		
 		byte hashTest[] = Password.hashPassword(pwArray, adminSalt, 10, 256);
-		System.out.println(hashTest[0]);
 	
 		if(Arrays.equals(hashTest, adminPw)){
 			isLoggedIn = true;
 			return true;
 		}
 		else{
-			System.out.println("wutwut");
 			return false;
 		}
 		
@@ -57,8 +55,7 @@ public class Admin {
 		}
 	}
 	public static void main(String[] args){
-		isLoggedIn = true;
-		addAdmin("smeller", "retta");
+		addAdmin("Trips7D", "12345");
 	}
 
 }
