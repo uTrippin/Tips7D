@@ -449,7 +449,7 @@ public class MainGUI extends JFrame {
 					currentTrip = tripList[j];
 				}
 			});
-			buttons[i].setBounds(153, 191, 117, 29);
+			buttons[i].setBounds(153, 191 + i*200, 117, 29);
 			panelTrip.add(buttons[i]);
 			
 		}
