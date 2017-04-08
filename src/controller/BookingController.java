@@ -27,22 +27,13 @@ public class BookingController {
 		bookingComplete = dbUpdater.insertBooking(booking);
 				
 		if(bookingComplete) {
-			sendVerification(Integer.parseInt(tripInfo[0]));
+			sendVerification(Integer.parseInt(tripInfo[0]), tripInfo[1]);
 		}
 		
 		return bookingComplete;	
 	}
 	
-	public static void sendVerification(int tripId) {
-			
-		BookingModel[] tripBookings = dbRetrival.queryTripBooking(tripId);
-		
-		for(int i=0; i < tripBookings.length; i++) {
-			contact(tripBookings[i].getBookerEmail(), tripId);
-		}
-	}
-	
-	public static void contact(String email, int tripId) {
+	public static void sendVerification(int tripId, String email) {
 
         final String username = "utrippin7d@gmail.com";
         final String password = "kulpassword";
