@@ -121,12 +121,16 @@ public class DatabaseUpdater {
 		try{
 			stmt = connection.createStatement();
 			
-			//String sql = "DROP TABLE TRIP";
-			//stmt.executeUpdate(sql);
+			String dropBooking = "DROP TABLE BOOKING";
+			stmt.executeUpdate(dropBooking);
 			
-			//String sql0 = "DROP TABLE BOOKING";
-			//stmt.executeUpdate(sql0);
-		    /*String sql1 = "CREATE TABLE TRIP " +
+			String dropTrip = "DROP TABLE TRIP";
+			stmt.executeUpdate(dropTrip);
+			
+			String dropAdmin = "DROP TABLE ADMIN";
+			stmt.executeUpdate(dropAdmin);
+			
+		    String createTrip = "CREATE TABLE TRIP " +
 		                   	"(tripId SERIAL PRIMARY KEY, " +
 		                   	" tripName VARCHAR(256) NOT NUll, " +
 		                   	" dateBegin DATE NOT NULL, " +
@@ -138,27 +142,26 @@ public class DatabaseUpdater {
 		                   	" price INT NOT NULL, " +
 		                   	" numBooking INT DEFAULT 0)";
 		                   
-		      stmt.executeUpdate(sql1);*/
-		      
-		      /*String sql2 = "CREATE TABLE ADMIN " +
-	                   		"(adminId VARCHAR(256) PRIMARY KEY, " +
-	                   		" adminPassword VARCHAR(256) NOT NUll, " +
-	                   		" salt VARCHAR(256) NOT NULL)";
-		      
-		      stmt.executeUpdate(sql2);*/
-		      
-		      /*String sql3 = "CREATE TABLE BOOKING " +
+		      stmt.executeUpdate(createTrip);
+		           
+		      String createBooking = "CREATE TABLE BOOKING " +
 		    		  		"(bookingId SERIAL PRIMARY KEY, " +
 		    		  		"tripId INT NOT NUll, " +
 		    		  		"bookerEmail VARCHAR(256) NOT NULL, " + 
 		    		  		"numPeople INT NOT NULL, " +
 		    		  		"bookerSSN INT NOT NULL);";
 		      
-		      stmt.executeUpdate(sql3);*/
+		      stmt.executeUpdate(createBooking);
+		      
+		      String createAdmin = "CREATE TABLE ADMIN " +
+         		"(adminId VARCHAR(256) PRIMARY KEY, " +
+         		" adminPassword VARCHAR(256) NOT NUll, " +
+         		" salt VARCHAR(256) NOT NULL)";
+
+				stmt.executeUpdate(createAdmin);
 		      
 		   }catch(SQLException se){
 		      //Handle errors for JDBC
-		      se.printStackTrace();
 		}
 	}
 }
