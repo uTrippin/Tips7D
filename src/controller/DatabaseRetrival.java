@@ -80,29 +80,6 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries TRIP table to get info about a trip
-<<<<<<< HEAD
-		public Trip[] queryTripInfo(int tripId) {
-			Trip [] tripList;
-			
-			try{		
-				String selectSQL = "SELECT * FROM TRIP WHERE tripId = ?";
-				PreparedStatement preparedStatement;
-
-				preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
-	                    ResultSet.CONCUR_UPDATABLE);
-				preparedStatement.setInt(1, tripId);
-				ResultSet rs = preparedStatement.executeQuery();
-				tripList = createTriplist(rs);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				tripList = new Trip[0];
-			}
-			
-			return tripList;	
-		}
-=======
 	public Trip[] queryTripInfo(int tripId) {
 		Trip [] tripList;
 				
@@ -124,7 +101,6 @@ public class DatabaseRetrival {
 		
 		return tripList;	
 	}
->>>>>>> 4d771e6620b1fbffeebefbf7ae5dbb7829f9d0aa
 	
 	//Creates a list of Trip objects
 	private Trip[] createTriplist(ResultSet rs) {
@@ -272,26 +248,22 @@ public class DatabaseRetrival {
 	
 	//test function
 	public String simpleQuery(String a) {
-			String s = "";
-			String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
-			PreparedStatement preparedStatement;
-			try {
-				preparedStatement = connection.prepareStatement(selectSQL);
-				preparedStatement.setString(1, a);
-				ResultSet rs = preparedStatement.executeQuery();
-				
-				while (rs.next()) {
-					s = rs.getString("bookerSSN");
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		String s = "";
+		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, a);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				s = rs.getString("bookerSSN");
 			}
-			return s;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-<<<<<<< HEAD
-
-=======
->>>>>>> 4d771e6620b1fbffeebefbf7ae5dbb7829f9d0aa
+		return s;
+	}
 }
