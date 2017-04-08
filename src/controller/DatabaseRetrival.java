@@ -225,27 +225,53 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries ADMIN table to get info about admin
-	public String[] queryAdmin(String adminId) {
-		String adminCred[] = new String[2];
-		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
-		PreparedStatement preparedStatement;
-		try {
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, adminId);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {
-				adminCred[0] = rs.getString("adminPassword");
-				adminCred[1] = rs.getString("salt");
+		public byte[] queryAdminPw(String adminId) {
+			byte[] adminPw;
+			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
+			PreparedStatement preparedStatement;
+			try {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, adminId);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				while (rs.next()) {
+					adminPw = rs.getBytes("adminPassword");
+					return adminPw;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				adminPw = new byte[2];
+				
 			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			adminPw = new byte[2];
+			return adminPw;
 		}
-		
-		return adminCred;
-	}
+	//Queries ADMIN table to get info about admin
+		public byte[] queryAdminSalt(String adminId) {
+			byte[] adminSalt;
+			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
+			PreparedStatement preparedStatement;
+			try {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, adminId);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				while (rs.next()) {
+					adminSalt = rs.getBytes("salt");
+					return adminSalt;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				adminSalt = new byte[2];
+				
+			}
+			adminSalt = new byte[2];
+			return adminSalt;
+		}
 	
 	//test function
 	public String simpleQuery() {

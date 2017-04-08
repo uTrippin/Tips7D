@@ -21,13 +21,20 @@ public class testerDB {
 			System.out.println(s[i]);
 		}*/
 		
-		/*Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1, 0);
-		Trip trip2 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1, 0);
+		/*Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavï¿½k", 1000, -1, 0);
+		Trip trip2 = new Trip("Walk in Reykjavï¿½k", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollaï¿½ dï¿½mi", 200, 50, "Reykjavï¿½k", 2000, -1, 0);
 		
 		dbU.insertTrip(trip1);
 		dbU.insertTrip(trip2);*/
 		
-		dbR.simpleQuery();
+		//dbR.simpleQuery();
+		String[] param = {"","","","",""};
+		SearchModel search = new SearchModel(param);
+		
+		Trip[] trippin = dbR.queryTrip(search);
+		for(int i = 0; i < trippin.length; i++){
+			System.out.print(trippin[i].getTripName());
+		}
 		
 	}
 }

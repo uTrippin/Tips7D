@@ -291,13 +291,16 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username = tfUsername.getText();
 				String password = tfPw.getText();
-				Admin.logIn(username, password);
-
-				panelTrip.setVisible(false);
-				panelAdmin.setVisible(false);
-				panelSearch.setVisible(false);
-				panelBook.setVisible(false);
-				panelAddTrip.setVisible(true);
+				if(Admin.logIn(username, password)){
+					panelTrip.setVisible(false);
+					panelAdmin.setVisible(false);
+					panelSearch.setVisible(false);
+					panelBook.setVisible(false);
+					panelAddTrip.setVisible(true);
+				}
+				else{
+					System.out.println("neineineinei");
+				}
 			}
 		});
 

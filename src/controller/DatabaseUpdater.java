@@ -41,7 +41,7 @@ public class DatabaseUpdater {
 	}
 		
 	//Function that adds a booking to the table BOOKINGS
-	public int insertBooking(BookingModel booking) { // 0 táknar bókun tókst, 1 táknar ekki næg pláss, 2 táknar villa kom upp
+	public int insertBooking(BookingModel booking) { // 0 tï¿½knar bï¿½kun tï¿½kst, 1 tï¿½knar ekki nï¿½g plï¿½ss, 2 tï¿½knar villa kom upp
 		String insertTableSQL = "INSERT INTO BOOKING"
 				+ "(tripId, bookerEmail, numPeople, bookerSSN) VALUES"
 				+ "(?,?,?,?)";
@@ -99,7 +99,7 @@ public class DatabaseUpdater {
 		}
 	}
 	
-	public void insertAdmin(String username, String password, String salt){
+	public void insertAdmin(String username, byte[] password, byte[] salt){
 		String insertTableSQL = "INSERT INTO ADMIN"
 				+ "(adminId, adminPassword, salt) VALUES"
 				+ "(?,?,?)";
@@ -107,8 +107,8 @@ public class DatabaseUpdater {
 		try {
 			preparedStatement = connection.prepareStatement(insertTableSQL);
 			preparedStatement.setString(1, username);
-			preparedStatement.setString(2, password);
-			preparedStatement.setString(3, salt);
+			preparedStatement.setBytes(2, password);
+			preparedStatement.setBytes(3, salt);
 			//execute insert SQL statement
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
