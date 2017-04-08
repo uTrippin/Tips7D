@@ -6,11 +6,13 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.EmptyBorder; 
 
 import model.Trip;
 import model.SearchModel;
 import controller.Admin;
+import controller.BookingController;
+import controller.SearchController;
 import model.BookingModel;
 
 import javax.swing.AbstractButton;
@@ -20,6 +22,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+
 import javax.swing.JToolBar;
 import java.awt.Button;
 import javax.swing.JTextField;
@@ -42,6 +46,10 @@ import java.awt.CardLayout;
 import javax.swing.JList;
 import java.awt.Dimension;
 import java.awt.Component;
+import java.awt.Label;
+import java.awt.Font;
+import java.awt.Scrollbar;
+import javax.swing.JScrollBar;
 
 public class MainGUI extends JFrame {
 
@@ -61,7 +69,7 @@ public class MainGUI extends JFrame {
 	private JTextField tfTrip;
 	private JPanel panelBook;
 	private JTextField tfSearch;
-
+	private Trip currentTrip;
 
 
 	public void showTrips(){
@@ -95,18 +103,19 @@ public class MainGUI extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public MainGUI() {
+	public MainGUI() throws ParseException {
 		setMinimumSize(new Dimension(500, 300));
-		setSize(new Dimension(1000, 700));
-		setMaximumSize(new Dimension(1000, 700));
+		setSize(new Dimension(500, 1000));
+		setMaximumSize(new Dimension(1000, 1500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setMinimumSize(new Dimension(500, 300));
-		contentPane.setMaximumSize(new Dimension(1000, 700));
+		contentPane.setMaximumSize(new Dimension(1000, 1500));
 		contentPane.setName("Day trips");
-		contentPane.setSize(new Dimension(1000, 700));
+		contentPane.setSize(new Dimension(1000, 1500));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -120,7 +129,7 @@ public class MainGUI extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Trip");
 		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNewLabel_1.setBounds(195, 30, 34, 16);
+		lblNewLabel_1.setBounds(195, 6, 34, 16);
 		panelTrip.add(lblNewLabel_1);
 		
 		JPanel panelSearch = new JPanel();
@@ -155,6 +164,7 @@ public class MainGUI extends JFrame {
 				panelAdmin.setVisible(false);
 				panelSearch.setVisible(false);
 				panelBook.setVisible(false);
+				
 			}
 		});
 		btnSearshTrip.setBounds(153, 149, 117, 29);
@@ -218,8 +228,7 @@ public class MainGUI extends JFrame {
 		tfTrip.setColumns(10);
 		
 		JLabel lable_6 = new JLabel("");
-		panelBook.add(lable_6
-				);
+		panelBook.add(lable_6);
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
@@ -228,60 +237,110 @@ public class MainGUI extends JFrame {
 				panelAdmin.setVisible(false);
 				panelSearch.setVisible(false);
 				panelBook.setVisible(false);
+				int tripnr = currentTrip.getTripId();
+				String tripString = "" + tripnr;
+				String[] searchP = {tripString, tfEmail.getText(), tfNrOfP.getText(), tfSSN.getText()};
+				BookingController.bookTrip(searchP);
 			}
 		});
 		panelBook.add(btnSubmit);
 		panelBook.setVisible(false);
-
-		JToolBar toolBar = new JToolBar();
-		toolBar.setFloatable(false);
-		toolBar.setBounds(38, 0, 424, 26);
-		contentPane.add(toolBar);
-
-		Button btnTbAdmin = new Button("Admin");
-		btnTbAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(false);
-				panelAdmin.setVisible(true);
-				panelSearch.setVisible(false);
-				panelBook.setVisible(false);
-			}
-		});
-		toolBar.add(btnTbAdmin);
-
-		Button btnTbTrips = new Button("Trip");
-		btnTbTrips.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(true);
-				panelAdmin.setVisible(false);
-				panelSearch.setVisible(false);
-				panelBook.setVisible(false);
-			}
-		});
-		toolBar.add(btnTbTrips);
 		
-		JButton btnBookTrip = new JButton("Book trip");
-		btnBookTrip.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(false);
-				panelAdmin.setVisible(false);
-				panelSearch.setVisible(false);
-				panelBook.setVisible(true);
-			}
-		});
-		btnBookTrip.setBounds(153, 191, 117, 29);
-		panelTrip.add(btnBookTrip);
-	
-
-		Button btnTbSearch = new Button("Search");
-		btnTbSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(false);
-				panelAdmin.setVisible(false);
-				panelSearch.setVisible(true);
-				panelBook.setVisible(false);
-			}
-		});
-		toolBar.add(btnTbSearch);
+		// Create new list of trips
+		JList tripsList = new JList();
+		tripsList.setBounds(376, 62, -334, 113);
+		panelTrip.add(tripsList);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(403, 6, 15, 214);
+		panelTrip.add(scrollBar);
+		
+		// Search for the trip's info
+		String searchParam[] = {"", "", "", "", ""};
+		Trip tripList[] = SearchController.findResults(searchParam);
+		
+		JButton[] buttons = new JButton[tripList.length];
+		for (int i = 0; i < tripList.length; i++) {
+			// Show trips
+			Label labelTripInfo = new Label(tripList[i].getTripName());
+			labelTripInfo.setFont(new Font("Dialog", Font.BOLD, 14));
+			labelTripInfo.setBounds(48, 42 + i*200, 350, 16);
+			panelTrip.add(labelTripInfo);
+			
+			// Show date
+			Label labelDateInfo = new Label("From " + (String) tripList[i].getDateBegin().toString() + " until " + (String) tripList[i].getDateEnd().toString());
+			labelDateInfo.setBounds(48, 92 + i*200, 350, 16);
+			panelTrip.add(labelDateInfo);
+			
+			// Show price
+			Label labelPriceInfo = new Label(Integer.toString(tripList[i].getPrice()) + " ISK");
+			labelPriceInfo.setBounds(48, 159 + i*200, 350, 16);
+			panelTrip.add(labelPriceInfo);
+			
+			// Show location
+			Label labelLocationInfo = new Label((String) tripList[i].getLocation().toString());
+			labelLocationInfo.setBounds(48, 126 + i*200, 350, 16);
+			panelTrip.add(labelLocationInfo);
+			
+			int j = i;
+			buttons[i] = new JButton("Book trip");
+			// JButton btnBookTrip = new JButton("Book trip");
+			buttons[i].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					panelTrip.setVisible(false);
+					panelAdmin.setVisible(false);
+					panelSearch.setVisible(false);
+					panelBook.setVisible(true);
+					labelTripInfo.setVisible(false);
+					labelDateInfo.setVisible(false);
+					labelPriceInfo.setVisible(false);
+					labelLocationInfo.setVisible(false);
+					tfTrip.setText(tripList[j].getTripName());
+					currentTrip = tripList[j];
+				}
+			});
+			buttons[i].setBounds(153, 191, 117, 29);
+			panelTrip.add(buttons[i]);
+			
+		}
+		
+				JToolBar toolBar = new JToolBar();
+				toolBar.setFloatable(false);
+				toolBar.setBounds(38, 0, 424, 26);
+				contentPane.add(toolBar);
+				
+						Button btnTbAdmin = new Button("Admin");
+						btnTbAdmin.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								panelTrip.setVisible(false);
+								panelAdmin.setVisible(true);
+								panelSearch.setVisible(false);
+								panelBook.setVisible(false);
+							}
+						});
+						toolBar.add(btnTbAdmin);
+						
+								Button btnTbTrips = new Button("Trip");
+								btnTbTrips.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										panelTrip.setVisible(true);
+										panelAdmin.setVisible(false);
+										panelSearch.setVisible(false);
+										panelBook.setVisible(false);
+										
+									}
+								});
+								toolBar.add(btnTbTrips);
+								
+										Button btnTbSearch = new Button("Search");
+										btnTbSearch.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												panelTrip.setVisible(false);
+												panelAdmin.setVisible(false);
+												panelSearch.setVisible(true);
+												panelBook.setVisible(false);
+											}
+										});
+										toolBar.add(btnTbSearch);
 	}
 }
