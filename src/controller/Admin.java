@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -14,8 +13,6 @@ public class Admin {
 	public static boolean logIn(String username, String password){
 		byte[] adminPw = dbR.queryAdminPw(username);
 		byte[] adminSalt = dbR.queryAdminSalt(username);
-		//String hashPw = adminCred[0];
-		//String hashSalt = adminCred[1];
 		
 		char[] pwArray = password.toCharArray();
 		
@@ -50,18 +47,9 @@ public class Admin {
 		    byte salt[] = bytes;
 		    char[] password2 = password.toCharArray();
 		    byte pw[] = Password.hashPassword(password2, salt, 10, 256);
-		    String pw2 = pw.toString();
-		    String saltString = salt.toString();
-		    
+
 			dbU.insertAdmin(username, pw, salt);
-			
-			/*if(Arrays.equals(saltTest, salt)){
-				System.out.println("Eins salt");
-			}
-			else{
-				System.out.println("ekki eins salt");
-			}*/
-			
+						
 			return true;
 		}
 		else{

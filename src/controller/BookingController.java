@@ -18,19 +18,27 @@ public class BookingController {
 	private static DatabaseUpdater dbUpdater = new DatabaseUpdater();
 
 	
-	public static boolean bookTrip(String[] tripInfo) { // tripInfo er listi af tripId, bookerEmail, numPeople, bookerSSN
+	public static String bookTrip(String[] tripInfo) { // tripInfo er listi af tripId, bookerEmail, numPeople, bookerSSN
 		
-		boolean bookingComplete = false;
+		int bookingComplete = -1;
+		String bookingResult = "";
 		
 		BookingModel booking = new BookingModel(-1, Integer.parseInt(tripInfo[0]), tripInfo[1], Integer.parseInt(tripInfo[2]), Integer.parseInt(tripInfo[3]));
 				
 		bookingComplete = dbUpdater.insertBooking(booking);
 				
-		if(bookingComplete) {
+		if(bookingComplete == 0) {
 			sendVerification(Integer.parseInt(tripInfo[0]), tripInfo[1]);
+			bookingResult = "Booking successful";
+		} else if(bookingComplete == 1) {
+			System.out.println("Því miður eru of fá sæti laus");
+			bookingResult = "Unfortunately not enough seats are available";
+		} else if(bookingComplete == 2) {
+			System.out.println("Villa kom upp við bókun");
+			bookingResult = "An error has occured, please try again";
 		}
 		
-		return bookingComplete;	
+		return bookingResult;	
 	}
 	
 	public static void sendVerification(int tripId, String email) {
@@ -71,12 +79,9 @@ public class BookingController {
             		+ "If you have any questions, please feel free to contact us by email utrippin7d@gmail.com." + "\n\n"
             		+ "Yours sincerely," + "\n"
             		+ "uTrippin"
-            		);           
+        		);           
 
             Transport.send(message);
-
-            System.out.println("Done");
-
         } catch (MessagingException e) {
             // do nothing
         }

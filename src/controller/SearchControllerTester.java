@@ -18,8 +18,8 @@ public class SearchControllerTester {
 		searchPm4 = new String[]  {"", "", "", "", ""};
 		searchPm5 = new String[] {"", "", "", "Reykjavík", ""};
 		
-		Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1);
-		Trip trip2 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1);
+		Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1, 0);
+		Trip trip2 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1, 0);
 				
 		list1 = new Trip[] {trip1};
 		list2 = new Trip[] {};
