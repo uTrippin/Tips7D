@@ -82,9 +82,7 @@ public class DatabaseRetrival {
 	//Queries TRIP table to get info about a trip
 	public Trip[] queryTripInfo(int tripId) {
 		Trip [] tripList;
-		
-		tripId = 1; // MUNA AÐ COMMENTA ÚT!!!
-		
+				
 		try{		
 			String selectSQL = "SELECT * FROM TRIP WHERE tripId = ?";
 			PreparedStatement preparedStatement;
@@ -249,24 +247,22 @@ public class DatabaseRetrival {
 	
 	//test function
 	public String simpleQuery(String a) {
-		try{		
-			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ '.*'";
+			String s = "";
+			String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
 			PreparedStatement preparedStatement;
-
-			preparedStatement = connection.prepareStatement(selectSQL);
-			//preparedStatement.setString(1, "*");
-			ResultSet rs = preparedStatement.executeQuery();
-			while(rs.next()){
-				return rs.getString("tripName");
+			try {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, a);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				while (rs.next()) {
+					s = rs.getString("bookerSSN");
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return s;
 		}
-		String b = "blabla";
-		return b;			
-	}
-
 }

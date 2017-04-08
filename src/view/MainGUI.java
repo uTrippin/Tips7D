@@ -245,34 +245,6 @@ public class MainGUI extends JFrame {
 		});
 		panelBook.add(btnSubmit);
 		panelBook.setVisible(false);
-
-		JToolBar toolBar = new JToolBar();
-		toolBar.setFloatable(false);
-		toolBar.setBounds(38, 0, 424, 26);
-		contentPane.add(toolBar);
-
-		Button btnTbAdmin = new Button("Admin");
-		btnTbAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(false);
-				panelAdmin.setVisible(true);
-				panelSearch.setVisible(false);
-				panelBook.setVisible(false);
-			}
-		});
-		toolBar.add(btnTbAdmin);
-
-		Button btnTbTrips = new Button("Trip");
-		btnTbTrips.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(true);
-				panelAdmin.setVisible(false);
-				panelSearch.setVisible(false);
-				panelBook.setVisible(false);
-				
-			}
-		});
-		toolBar.add(btnTbTrips);
 		
 		// Create new list of trips
 		JList tripsList = new JList();
@@ -331,16 +303,44 @@ public class MainGUI extends JFrame {
 			panelTrip.add(buttons[i]);
 			
 		}
-
-		Button btnTbSearch = new Button("Search");
-		btnTbSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelTrip.setVisible(false);
-				panelAdmin.setVisible(false);
-				panelSearch.setVisible(true);
-				panelBook.setVisible(false);
-			}
-		});
-		toolBar.add(btnTbSearch);
+		
+				JToolBar toolBar = new JToolBar();
+				toolBar.setFloatable(false);
+				toolBar.setBounds(38, 0, 424, 26);
+				contentPane.add(toolBar);
+				
+						Button btnTbAdmin = new Button("Admin");
+						btnTbAdmin.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								panelTrip.setVisible(false);
+								panelAdmin.setVisible(true);
+								panelSearch.setVisible(false);
+								panelBook.setVisible(false);
+							}
+						});
+						toolBar.add(btnTbAdmin);
+						
+								Button btnTbTrips = new Button("Trip");
+								btnTbTrips.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										panelTrip.setVisible(true);
+										panelAdmin.setVisible(false);
+										panelSearch.setVisible(false);
+										panelBook.setVisible(false);
+										
+									}
+								});
+								toolBar.add(btnTbTrips);
+								
+										Button btnTbSearch = new Button("Search");
+										btnTbSearch.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												panelTrip.setVisible(false);
+												panelAdmin.setVisible(false);
+												panelSearch.setVisible(true);
+												panelBook.setVisible(false);
+											}
+										});
+										toolBar.add(btnTbSearch);
 	}
 }
