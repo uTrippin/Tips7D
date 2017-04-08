@@ -274,8 +274,7 @@ public class DatabaseRetrival {
 		}
 	
 	//test function
-	public String simpleQuery() {
-		String s = "";
+	/*public String simpleQuery() {
 		String selectSQL = "SELECT * FROM BOOKING";
 		PreparedStatement preparedStatement;
 		try {
@@ -292,5 +291,5 @@ public class DatabaseRetrival {
 			e.printStackTrace();
 		}
 		return s;
-	}
+	}*/
 }
