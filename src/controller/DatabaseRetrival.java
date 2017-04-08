@@ -21,6 +21,9 @@ public class DatabaseRetrival {
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
+
+			//System.out.println("Where is your PostgreSQL JDBC Driver? "
+			//		+ "Include in your library path!");
 			e.printStackTrace();
 			return;
 		}
@@ -34,8 +37,15 @@ public class DatabaseRetrival {
 		try {
 			connection = DriverManager.getConnection(URL, USER, PASS);
 		} catch (SQLException e) {
+			//System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
 			return;
+		}
+
+		if (connection != null) {
+			//System.out.println("You made it, take control of your database now!");
+		} else {
+			//System.out.println("Failed to make connection!");
 		}
 	}
 	
@@ -120,8 +130,9 @@ public class DatabaseRetrival {
 				String location = rs.getString("location");
 				int price = rs.getInt("price");
 				int tripId = rs.getInt("tripId");
+				int numBooking = rs.getInt("numBooking");
 				
-				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId);
+				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId, numBooking);
 				i++;
 			}
 		} catch(SQLException e){
@@ -214,40 +225,66 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries ADMIN table to get info about admin
-	public String[] queryAdmin(String adminId) {
-		String adminCred[] = new String[2];
-		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
-		PreparedStatement preparedStatement;
-		try {
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, adminId);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {
-				adminCred[0] = rs.getString("adminPassword");
-				adminCred[1] = rs.getString("salt");
+		public byte[] queryAdminPw(String adminId) {
+			byte[] adminPw;
+			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
+			PreparedStatement preparedStatement;
+			try {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, adminId);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				while (rs.next()) {
+					adminPw = rs.getBytes("adminPassword");
+					return adminPw;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				adminPw = new byte[2];
+				
 			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			adminPw = new byte[2];
+			return adminPw;
 		}
-		
-		return adminCred;
-	}
+	//Queries ADMIN table to get info about admin
+		public byte[] queryAdminSalt(String adminId) {
+			byte[] adminSalt;
+			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
+			PreparedStatement preparedStatement;
+			try {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, adminId);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				while (rs.next()) {
+					adminSalt = rs.getBytes("salt");
+					return adminSalt;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				adminSalt = new byte[2];
+				
+			}
+			adminSalt = new byte[2];
+			return adminSalt;
+		}
 	
 	//test function
-	public String[] simpleQuery() {
-		String s[] = new String[100];
+	public String simpleQuery() {
+		String s = "";
 		String selectSQL = "SELECT * FROM BOOKING";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL);
 			ResultSet rs = preparedStatement.executeQuery();
-			int i = 0;
+			
 			while (rs.next()) {
-				s[i] = rs.getString("bookerSSN") + " " + rs.getString("tripId") + " "  + rs.getString("bookerEmail") + " "  + rs.getString("numPeople");
-				i++;
+				s = rs.getString("tripId") + "\t" + rs.getString("bookerEmail") + "\t" + rs.getString("numPeople");
+				System.out.println(s);
 			}
 			
 		} catch (SQLException e) {

@@ -16,10 +16,11 @@ public class testerDB {
 		
 		//dbU.createTables();
 		
-		String s[] = dbR.simpleQuery();
+		/*String s[] = dbR.simpleQuery();
 		for(int i= 0; i< 10; i++){
 			System.out.println(s[i]);
-		}
+		}*/
+		dbU.createTables();
 		
 	}
 }

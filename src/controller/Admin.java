@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -11,22 +12,22 @@ public class Admin {
 	private static DatabaseUpdater dbU = new DatabaseUpdater();
 	
 	public static boolean logIn(String username, String password){
-		String[] adminCred = dbR.queryAdmin(username);
-		String hashPw = (String) adminCred[0];
-		String hashSalt = (String) adminCred[1];
-		
-		byte[] hashPwB = hashPw.getBytes();
-		byte[] hashPwS = hashSalt.getBytes();
+		byte[] adminPw = dbR.queryAdminPw(username);
+		byte[] adminSalt = dbR.queryAdminSalt(username);
+		//String hashPw = adminCred[0];
+		//String hashSalt = adminCred[1];
 		
 		char[] pwArray = password.toCharArray();
 		
-		byte hashTest[] = Password.hashPassword(pwArray, hashPwS, 10, 256);
-		
-		if(Arrays.equals(hashTest, hashPwB)){
+		byte hashTest[] = Password.hashPassword(pwArray, adminSalt, 10, 256);
+		System.out.println(hashTest[0]);
+	
+		if(Arrays.equals(hashTest, adminPw)){
 			isLoggedIn = true;
 			return true;
 		}
 		else{
+			System.out.println("wutwut");
 			return false;
 		}
 		
@@ -47,13 +48,29 @@ public class Admin {
 		    byte bytes[] = new byte[20];
 		    random.nextBytes(bytes);
 		    byte salt[] = bytes;
+		    char[] password2 = password.toCharArray();
+		    byte pw[] = Password.hashPassword(password2, salt, 10, 256);
+		    String pw2 = pw.toString();
 		    String saltString = salt.toString();
-			dbU.insertAdmin(username, password, saltString);
+		    
+			dbU.insertAdmin(username, pw, salt);
+			
+			/*if(Arrays.equals(saltTest, salt)){
+				System.out.println("Eins salt");
+			}
+			else{
+				System.out.println("ekki eins salt");
+			}*/
+			
 			return true;
 		}
 		else{
 			return false;
 		}
+	}
+	public static void main(String[] args){
+		isLoggedIn = true;
+		addAdmin("smeller", "retta");
 	}
 
 }
