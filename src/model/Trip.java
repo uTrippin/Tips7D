@@ -67,44 +67,4 @@ public class Trip {
 	public int getNumBooking() {
 		return numBooking;
 	}
-	
-	private void setTripNme(String tripName) {
-		this.tripName = tripName;
-	}
-	
-	private void setDateBegin(Date dateBegin) {
-		this.dateBegin = dateBegin;
-	}
-	
-	private void setDateEnd(Date dateEnd) {
-		this.dateEnd = dateEnd;
-	}
-	
-	private void setDescription(String description) {
-		this.description = description;
-	}
-	
-	private void setMaxPeople(int maxPeople) {
-		this.maxPeople = maxPeople;
-	}
-	
-	private void setMinPeople(int minPeople) {
-		this.minPeople = minPeople;
-	}
-	
-	private void setLocation(String location) {
-		this.location = location;
-	}
-	
-	private void setPrice(int price) {
-		this.price = price;
-	}
-	
-	private void setTripId(int tripId) {
-		this.tripId = tripId;
-	}
-	
-	private void setNumBooking(int numBooking) {
-		this.numBooking = numBooking;
-	}
 }
