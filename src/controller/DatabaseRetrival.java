@@ -225,7 +225,7 @@ public class DatabaseRetrival {
 	}
 	
 	//Queries ADMIN table to get info about admin
-		public byte[] queryAdminPw(String adminId) {
+	public byte[] queryAdminPw(String adminId) {
 			byte[] adminPw;
 			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
 			PreparedStatement preparedStatement;
@@ -248,48 +248,31 @@ public class DatabaseRetrival {
 			adminPw = new byte[2];
 			return adminPw;
 		}
-	//Queries ADMIN table to get info about admin
-		public byte[] queryAdminSalt(String adminId) {
-			byte[] adminSalt;
-			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
-			PreparedStatement preparedStatement;
-			try {
-				preparedStatement = connection.prepareStatement(selectSQL);
-				preparedStatement.setString(1, adminId);
-				ResultSet rs = preparedStatement.executeQuery();
-				
-				while (rs.next()) {
-					adminSalt = rs.getBytes("salt");
-					return adminSalt;
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				adminSalt = new byte[2];
-				
-			}
-			adminSalt = new byte[2];
-			return adminSalt;
-		}
 	
-	//test function
-	/*public String simpleQuery() {
-		String selectSQL = "SELECT * FROM BOOKING";
+	//Queries ADMIN table to get info about admin
+	public byte[] queryAdminSalt(String adminId) {
+		byte[] adminSalt;
+		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, adminId);
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
-				s = rs.getString("tripId") + "\t" + rs.getString("bookerEmail") + "\t" + rs.getString("numPeople");
-				System.out.println(s);
+				adminSalt = rs.getBytes("salt");
+				return adminSalt;
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			adminSalt = new byte[2];
+			
 		}
-		return s;
-	}*/
+		adminSalt = new byte[2];
+		return adminSalt;
+	}
+
+	
 }

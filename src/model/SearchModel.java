@@ -77,15 +77,4 @@ public class SearchModel {
 	public int getPrice() {
 		return price;
 	}
-	
-	public String toString() {
-		String print = "";
-		print = "Tripname: " + tripName 
-				+ "\nDate Begin: " + dateBegin 
-				+ "\nDate End: " + dateEnd 
-				+ "\nLocation: " + location
-				+ "\nPrice: " + price;
-		
-		return print;
-	}
 }

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import model.BookingModel;
 import model.Trip;
@@ -116,52 +115,4 @@ public class DatabaseUpdater {
 		}
 	}
 	
-	public void createTables() {
-		Statement stmt = null;
-		try{
-			stmt = connection.createStatement();
-			
-			String dropBooking = "DROP TABLE BOOKING";
-			stmt.executeUpdate(dropBooking);
-			
-			String dropTrip = "DROP TABLE TRIP";
-			stmt.executeUpdate(dropTrip);
-			
-			String dropAdmin = "DROP TABLE ADMIN";
-			stmt.executeUpdate(dropAdmin);
-			
-		    String createTrip = "CREATE TABLE TRIP " +
-		                   	"(tripId SERIAL PRIMARY KEY, " +
-		                   	" tripName VARCHAR(256) NOT NUll, " +
-		                   	" dateBegin DATE NOT NULL, " +
-		                   	" dateEnd DATE NOT NULL, " +
-		                   	" description VARCHAR(2000), " +
-		                   	" maxPeople INT NOT NULL, " +
-		                   	" minPeople INT NOT NULL, " +
-		                   	" location VARCHAR(256) NOT NULL, " +
-		                   	" price INT NOT NULL, " +
-		                   	" numBooking INT DEFAULT 0)";
-		                   
-		      stmt.executeUpdate(createTrip);
-		           
-		      String createBooking = "CREATE TABLE BOOKING " +
-		    		  		"(bookingId SERIAL PRIMARY KEY, " +
-		    		  		"tripId INT NOT NUll, " +
-		    		  		"bookerEmail VARCHAR(256) NOT NULL, " + 
-		    		  		"numPeople INT NOT NULL, " +
-		    		  		"bookerSSN INT NOT NULL);";
-		      
-		      stmt.executeUpdate(createBooking);
-		      
-		      String createAdmin = "CREATE TABLE ADMIN " +
-         		"(adminId VARCHAR(256) PRIMARY KEY, " +
-         		" adminPassword VARCHAR(256) NOT NUll, " +
-         		" salt VARCHAR(256) NOT NULL)";
-
-				stmt.executeUpdate(createAdmin);
-		      
-		   }catch(SQLException se){
-		      //Handle errors for JDBC
-		}
-	}
 }

@@ -27,6 +27,7 @@ public class Admin {
 		}
 		
 	}
+	
 	public static boolean addTrip(Trip trip){
 		if(isLoggedIn){
 			dbU.insertTrip(trip);
@@ -54,8 +55,9 @@ public class Admin {
 			return false;
 		}
 	}
-	public static void main(String[] args){
+	
+	/*public static void main(String[] args){
 		addAdmin("Trips7D", "12345");
-	}
+	}*/
 
 }
