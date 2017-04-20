@@ -115,4 +115,19 @@ public class DatabaseUpdater {
 		}
 	}
 	
+	public void sampleQuery() {
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement("UPDATE TRIP SET " 
+						+ "Description = ?"
+						+ "WHERE tripName = ?;");
+			preparedStatement.setString(1, "Walking Stórurð on a great summer day. Stórurð is close to being like a paradise, located at the beautiful mountains Dyrfjöll. No one walks away from there with disappointment.");
+			preparedStatement.setString(2, "Walking Stórurð");
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

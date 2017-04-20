@@ -273,6 +273,27 @@ public class DatabaseRetrival {
 		adminSalt = new byte[2];
 		return adminSalt;
 	}
+	
+	public void sampleQuery() {
+		BookingModel[] test;
 
+		String selectSQL = "SELECT * FROM BOOKING;";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = preparedStatement.executeQuery();
+			test = createBookinglist(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			test = new BookingModel[0];
+		}
+		
+		for(int i=0; i < test.length; i++) {
+			System.out.println(test[i].getBookerSSN());
+		}
+	}
 	
 }

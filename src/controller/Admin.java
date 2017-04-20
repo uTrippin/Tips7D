@@ -5,6 +5,12 @@ import java.util.Arrays;
 
 import model.Trip;
 
+/*
+ * Example account:
+ * User: Trips7D
+ * Password: 12345
+ */
+
 public class Admin {
 	private static boolean isLoggedIn = false;
 	private static DatabaseRetrival dbR = new DatabaseRetrival();
@@ -55,9 +61,9 @@ public class Admin {
 			return false;
 		}
 	}
-	
-	/*public static void main(String[] args){
-		addAdmin("Trips7D", "12345");
-	}*/
+
+	public static boolean getIsLoggedIn(){
+		return isLoggedIn;
+	}
 
 }
