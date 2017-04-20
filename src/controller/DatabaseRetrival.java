@@ -12,7 +12,7 @@ import model.Trip;
 
 public class DatabaseRetrival {
 	private Connection connection = null; //Database connection
-	
+
 	//Constructor for the DatabaseRetrival
 	public DatabaseRetrival() {
 		//Connect to the postgresql driver
@@ -21,18 +21,15 @@ public class DatabaseRetrival {
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
-
-			//System.out.println("Where is your PostgreSQL JDBC Driver? "
-			//		+ "Include in your library path!");
 			e.printStackTrace();
 			return;
 		}
-		
+
 		//Setting the database parameters
 		String URL = "jdbc:postgresql://kuldbinstance.czsqr6wtrtap.us-west-2.rds.amazonaws.com:5432/kuldb";
 		String USER = "kuluser";
 		String PASS = "kulpassword";
-		
+
 		//Connecting to the AWS database
 		try {
 			connection = DriverManager.getConnection(URL, USER, PASS);
@@ -48,18 +45,18 @@ public class DatabaseRetrival {
 			//System.out.println("Failed to make connection!");
 		}
 	}
-	
+
 	//Querying the TRIP table
 	public Trip[] queryTrip(SearchModel search) {
 		Trip [] tripList;
-		
+
 		try{		
 			String selectSQL = "SELECT * FROM TRIP WHERE tripName ~ ? AND dateBegin BETWEEN ? AND ? AND dateEnd BETWEEN ? AND ? AND location ~ ?"
 					+ "AND price <= ?";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE);
+					ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setString(1, search.getTripName());
 			preparedStatement.setDate(2, search.getDateBegin());
 			preparedStatement.setDate(3, search.getDateEnd());
@@ -69,39 +66,37 @@ public class DatabaseRetrival {
 			preparedStatement.setInt(7, search.getPrice());
 			ResultSet rs = preparedStatement.executeQuery();
 			tripList = createTriplist(rs);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			tripList = new Trip[0];
 		}
-		
+
 		return tripList;	
 	}
-	
+
 	//Queries TRIP table to get info about a trip
 	public Trip[] queryTripInfo(int tripId) {
 		Trip [] tripList;
-				
+
 		try{		
 			String selectSQL = "SELECT * FROM TRIP WHERE tripId = ?";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE);
+					ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setInt(1, tripId);
 			ResultSet rs = preparedStatement.executeQuery();
 			tripList = createTriplist(rs);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			tripList = new Trip[0];
 		}
-		
+
 		return tripList;	
 	}
-	
+
 	//Creates a list of Trip objects
 	private Trip[] createTriplist(ResultSet rs) {
 		int n = 0;
@@ -109,7 +104,7 @@ public class DatabaseRetrival {
 			//Get the length of the results set
 			boolean b = rs.last();
 			if(b){
-			    n = rs.getRow();
+				n = rs.getRow();
 			}
 			rs.beforeFirst();
 		} catch(SQLException e){
@@ -117,7 +112,7 @@ public class DatabaseRetrival {
 		}	
 		//Create a list of Trip objects of the correct size
 		Trip[] tripList = new Trip[n];
-		
+
 		try{
 			int i = 0;
 			while (rs.next()) {
@@ -131,61 +126,59 @@ public class DatabaseRetrival {
 				int price = rs.getInt("price");
 				int tripId = rs.getInt("tripId");
 				int numBooking = rs.getInt("numBooking");
-				
+
 				tripList[i] = new Trip(tripName, dateBegins, dateEnds, desc, maxPeople, minPeople, location, price, tripId, numBooking);
 				i++;
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
-		
+
 		return tripList;
 	}
-	
+
 	//Queries BOOKING table to get info about a person
 	public BookingModel[] queryPersonBooking(String email) {
 		BookingModel [] bookingList;
-		
+
 		String selectSQL = "SELECT * FROM BOOKING WHERE bookerEmail = ?";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE);
+					ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setString(1, email);
 			ResultSet rs = preparedStatement.executeQuery();
 			bookingList = createBookinglist(rs);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			bookingList = new BookingModel[0];
 		}
-		
+
 		return bookingList;
 	}
-	
+
 	//Queries the BOOKING table to get info about a trip
 	public BookingModel[] queryTripBooking(int tripId) {
 		BookingModel [] bookingList;
-		
+
 		String selectSQL = "SELECT * FROM BOOKING WHERE tripId = ?";
 		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE);
+					ResultSet.CONCUR_UPDATABLE);
 			preparedStatement.setInt(1, tripId);
 			ResultSet rs = preparedStatement.executeQuery();
 			bookingList = createBookinglist(rs);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			bookingList = new BookingModel[0];
 		}
-		
+
 		return bookingList;
 	}
-	
+
 	//Creates a list of BookingModel objects 
 	private BookingModel[] createBookinglist(ResultSet rs) {
 		BookingModel[] bookingList;
@@ -194,18 +187,17 @@ public class DatabaseRetrival {
 		try{
 			boolean b = rs.last();
 			if(b){
-			    n = rs.getRow();
+				n = rs.getRow();
 			}
 			rs.beforeFirst();
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
-		
-		
+
 		try{
 			//Create a list of Trip objects
 			bookingList = new BookingModel[n];
-			
+
 			int i = 0;
 			while (rs.next()) {
 				int bookingId = rs.getInt("bookingId");
@@ -216,39 +208,37 @@ public class DatabaseRetrival {
 				bookingList[i] = new BookingModel(bookingId, tripId, bookerEmail, numPeople, bookerSSN);
 				i++;
 			}
-			
 			return bookingList;
 		} catch (SQLException e){
 			bookingList = new BookingModel[0];
 			return bookingList;
 		}
 	}
-	
+
 	//Queries ADMIN table to get info about admin
 	public byte[] queryAdminPw(String adminId) {
-			byte[] adminPw;
-			String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
-			PreparedStatement preparedStatement;
-			try {
-				preparedStatement = connection.prepareStatement(selectSQL);
-				preparedStatement.setString(1, adminId);
-				ResultSet rs = preparedStatement.executeQuery();
-				
-				while (rs.next()) {
-					adminPw = rs.getBytes("adminPassword");
-					return adminPw;
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				adminPw = new byte[2];
-				
+		byte[] adminPw;
+		String selectSQL = "SELECT * FROM ADMIN WHERE adminId = ?";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, adminId);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				adminPw = rs.getBytes("adminPassword");
+				return adminPw;
 			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			adminPw = new byte[2];
-			return adminPw;
 		}
-	
+		adminPw = new byte[2];
+		return adminPw;
+	}
+
 	//Queries ADMIN table to get info about admin
 	public byte[] queryAdminSalt(String adminId) {
 		byte[] adminSalt;
@@ -258,42 +248,17 @@ public class DatabaseRetrival {
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, adminId);
 			ResultSet rs = preparedStatement.executeQuery();
-			
+
 			while (rs.next()) {
 				adminSalt = rs.getBytes("salt");
 				return adminSalt;
-			}
-			
+			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			adminSalt = new byte[2];
-			
+			adminSalt = new byte[2];	
 		}
 		adminSalt = new byte[2];
 		return adminSalt;
 	}
-	
-	public void sampleQuery() {
-		BookingModel[] test;
-
-		String selectSQL = "SELECT * FROM BOOKING;";
-		PreparedStatement preparedStatement;
-		try {
-			preparedStatement = connection.prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_SENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE);
-			ResultSet rs = preparedStatement.executeQuery();
-			test = createBookinglist(rs);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			test = new BookingModel[0];
-		}
-		
-		for(int i=0; i < test.length; i++) {
-			System.out.println(test[i].getBookerSSN());
-		}
-	}
-	
 }

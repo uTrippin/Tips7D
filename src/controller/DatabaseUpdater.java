@@ -14,49 +14,42 @@ public class DatabaseUpdater {
 	private String USER = "kuluser";
 	private String PASS = "kulpassword";
 	private DatabaseRetrival dbR = new DatabaseRetrival();
-	
+
 	public DatabaseUpdater() {
 
 		try {
-
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return;
-
 		}
-		
+
 		try {
-
 			connection = DriverManager.getConnection(URL, USER, PASS);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return;
-
 		}
 	}
-		
+
 	//Function that adds a booking to the table BOOKINGS
-	public int insertBooking(BookingModel booking) { // 0 tï¿½knar bï¿½kun tï¿½kst, 1 tï¿½knar ekki nï¿½g plï¿½ss, 2 tï¿½knar villa kom upp
+	public int insertBooking(BookingModel booking) { // 0 = booking successful, 1 = not enoguh seats available, 2 = an error has occured
 		String insertTableSQL = "INSERT INTO BOOKING"
 				+ "(tripId, bookerEmail, numPeople, bookerSSN) VALUES"
 				+ "(?,?,?,?)";
 		PreparedStatement preparedStatement;
 		try {
 			Trip[] tripList = dbR.queryTripInfo(booking.getTripId());
-			
+
 			if(booking.getNumPeople() + tripList[0].getNumBooking() <= tripList[0].getMaxPeople()) {
 				preparedStatement = connection.prepareStatement(insertTableSQL);
 				preparedStatement.setInt(1, booking.getTripId());
 				preparedStatement.setString(2, booking.getBookerEmail());
 				preparedStatement.setInt(3, booking.getNumPeople());
 				preparedStatement.setInt(4, booking.getBookerSSN());
-				//execute insert SQL statement
 				preparedStatement.executeUpdate();
-				
-				
+
 				String updateTableSQL = "UPDATE TRIP SET numBooking = numBooking + ?";
 				preparedStatement = connection.prepareStatement(updateTableSQL);
 				preparedStatement.setInt(1, booking.getNumPeople());
@@ -72,7 +65,7 @@ public class DatabaseUpdater {
 			return 2;
 		}
 	}
-	
+
 	//Function that adds a booking to the table BOOKINGS
 	public void insertTrip(Trip trip) {
 		String insertTableSQL = "INSERT INTO TRIP"
@@ -96,7 +89,7 @@ public class DatabaseUpdater {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void insertAdmin(String username, byte[] password, byte[] salt){
 		String insertTableSQL = "INSERT INTO ADMIN"
 				+ "(adminId, adminPassword, salt) VALUES"
@@ -114,20 +107,4 @@ public class DatabaseUpdater {
 			e.printStackTrace();
 		}
 	}
-	
-	public void sampleQuery() {
-		PreparedStatement preparedStatement;
-		try {
-			preparedStatement = connection.prepareStatement("UPDATE TRIP SET " 
-						+ "Description = ?"
-						+ "WHERE tripName = ?;");
-			preparedStatement.setString(1, "Walking Stórurð on a great summer day. Stórurð is close to being like a paradise, located at the beautiful mountains Dyrfjöll. No one walks away from there with disappointment.");
-			preparedStatement.setString(2, "Walking Stórurð");
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }

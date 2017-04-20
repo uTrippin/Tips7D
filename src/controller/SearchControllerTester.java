@@ -17,15 +17,15 @@ public class SearchControllerTester {
 		searchPm3 = new String[] {"Hallo", "invalid", "invalid", "Reykjavík", "invalid"};		
 		searchPm4 = new String[]  {"", "", "", "", ""};
 		searchPm5 = new String[] {"", "", "", "Reykjavík", ""};
-		
+
 		Trip trip1 = new Trip("Hallo", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "sweet stuff", 100, 0, "Reykjavík", 1000, -1, 0);
 		Trip trip2 = new Trip("Walk in Reykjavík", Date.valueOf("2017-04-01"), Date.valueOf("2017-05-01"), "lollað dæmi", 200, 50, "Reykjavík", 2000, -1, 0);
-				
+
 		list1 = new Trip[] {trip1};
 		list2 = new Trip[] {};
 		list3 = new Trip[] {trip1, trip2};
 	}
-	
+
 	@After
 	public void tearDown() { 
 		searchPm1 = null;
@@ -33,17 +33,17 @@ public class SearchControllerTester {
 		searchPm3 = null;
 		searchPm4 = null;
 		searchPm5 = null;
-		
+
 		list1 = null;
 		list2 = null;
 		list3 = null;
 	}
-	
+
 	@Test
 	public void testExistingTrip() throws ParseException {
 		Trip[] listFromDB = SearchController.findResults(searchPm1);
 		assertEquals(list1.length, listFromDB.length);
-		
+
 		for(int i=0; i < list1.length; i++) {
 			assertEquals(list1[i].getTripName(), listFromDB[i].getTripName());
 			assertEquals(list1[i].getDateBegin(), listFromDB[i].getDateBegin());
@@ -55,12 +55,12 @@ public class SearchControllerTester {
 			assertEquals(list1[i].getPrice(), listFromDB[i].getPrice());
 		}		
 	}
-	
+
 	@Test
 	public void testWithValidNoneExistingTrip() throws ParseException {
 		Trip[] listFromDB = SearchController.findResults(searchPm2);
 		assertEquals(list2.length, listFromDB.length);
-		
+
 		for(int i=0; i < list2.length; i++) {
 			assertEquals(list2[i].getTripName(), listFromDB[i].getTripName());
 			assertEquals(list2[i].getDateBegin(), listFromDB[i].getDateBegin());
@@ -72,12 +72,12 @@ public class SearchControllerTester {
 			assertEquals(list2[i].getPrice(), listFromDB[i].getPrice());
 		}		
 	}
-	
+
 	@Test
 	public void testWithNonvalidParameters() throws ParseException {
 		Trip[] listFromDB = SearchController.findResults(searchPm3);
 		assertEquals(list1.length, listFromDB.length);
-		
+
 		for(int i=0; i < list1.length; i++) {
 			assertEquals(list1[i].getTripName(), listFromDB[i].getTripName());
 			assertEquals(list1[i].getDateBegin(), listFromDB[i].getDateBegin());
@@ -89,12 +89,12 @@ public class SearchControllerTester {
 			assertEquals(list1[i].getPrice(), listFromDB[i].getPrice());
 		}	
 	}
-	
+
 	@Test
 	public void testWithEmptyParameters() throws ParseException {
 		Trip[] listFromDB = SearchController.findResults(searchPm4);
 		assertEquals(list3.length, listFromDB.length);
-		
+
 		for(int i=0; i < list3.length; i++) {
 			assertEquals(list3[i].getTripName(), listFromDB[i].getTripName());
 			assertEquals(list3[i].getDateBegin(), listFromDB[i].getDateBegin());
@@ -106,12 +106,12 @@ public class SearchControllerTester {
 			assertEquals(list3[i].getPrice(), listFromDB[i].getPrice());
 		}
 	}
-	
+
 	@Test
 	public void testWithMoreThanOneResult() throws ParseException {
 		Trip[] listFromDB = SearchController.findResults(searchPm5);
 		assertEquals(list3.length, listFromDB.length);
-		
+
 		for(int i=0; i < list3.length; i++) {
 			assertEquals(list3[i].getTripName(), listFromDB[i].getTripName());
 			assertEquals(list3[i].getDateBegin(), listFromDB[i].getDateBegin());

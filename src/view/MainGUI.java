@@ -1,45 +1,35 @@
 package view;
 
-import java.awt.BorderLayout;
+import model.Trip;
+import controller.Admin;
+import controller.BookingController;
+import controller.SearchController;
+
 import java.awt.EventQueue;
 import java.sql.Date;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
-import model.Trip;
-import controller.Admin;
-import controller.BookingController;
-import controller.SearchController;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
-
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
-
 import java.awt.Button;
 import java.awt.Color;
-
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-
 import java.awt.Dimension;
 import java.awt.Label;
 import java.awt.Font;
 import javax.swing.JTextArea;
 import java.awt.Rectangle;
-import java.awt.ScrollPane;
 
 public class MainGUI extends JFrame {
 
@@ -172,16 +162,16 @@ public class MainGUI extends JFrame {
 		// Trip
 		JLabel lbTripR = new JLabel("Trip:");
 		lbTripR.setBounds(10, 260, 75, 16);
-		
+
 		Label lbTripNameResult = new Label("");
 		lbTripNameResult.setBounds(150, 260, 424, 14);
 		panelSearch.add(lbTripNameResult);
-		
+
 		// Date	
 		Label lbDateToR = new Label("Date:");
 		lbDateToR.setBounds(10, 290, 50, 16);
 		lbDateToR.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
+
 		Label lbDateToResult = new Label("");
 		lbDateToResult.setBounds(150, 290, 75, 16);
 		panelSearch.add(lbDateToResult);
@@ -211,7 +201,7 @@ public class MainGUI extends JFrame {
 		Label lbPriceResult = new Label("");
 		lbPriceResult.setBounds(150, 350, 75, 16);
 		panelSearch.add(lbPriceResult);
-		
+
 		// Description
 		Label lbDescriptionR = new Label("Description:");
 		lbDescriptionR.setBounds(10, 380, 100, 16);
@@ -227,7 +217,6 @@ public class MainGUI extends JFrame {
 
 		btnSearchTrip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				panelSearch.add(lbTripR);
 				panelSearch.add(lbDateToR);
 				panelSearch.add(lbDateTo);
@@ -256,7 +245,7 @@ public class MainGUI extends JFrame {
 				lbPriceResult.setText("" + tripSearchList[0].getPrice() + " ISK");
 				lbDescriptionResult.setText("" + tripSearchList[0].getDescription());
 				panelSearch.add(lbDescriptionResult);
-				
+
 				JButton book = new JButton("Book trip");
 				book.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -269,7 +258,7 @@ public class MainGUI extends JFrame {
 				});
 				book.setBounds(10, 410, 100, 29);
 				panelSearch.add(book);
-				
+
 				if(tripSearchList.length > 1){
 					Button buttonNext = new Button("Next trip");
 					buttonNext.setBounds(306, 620, 88, 22);
@@ -285,7 +274,7 @@ public class MainGUI extends JFrame {
 							lbLocationResult.setText(tripSearchList[c].getLocation());
 							lbPriceResult.setText("" + tripSearchList[c].getPrice() + " ISK");
 							lbDescriptionResult.setText("" + tripSearchList[c].getDescription());
-							
+
 							JButton book1 = new JButton("Book trip");
 							book1.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
@@ -316,7 +305,7 @@ public class MainGUI extends JFrame {
 							lbLocationResult.setText(tripSearchList[c].getLocation());
 							lbPriceResult.setText("" + tripSearchList[c].getPrice() + " ISK");
 							lbDescriptionResult.setText("" + tripSearchList[c].getDescription());
-							
+
 							JButton book1 = new JButton("Book trip");
 							book1.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
@@ -331,14 +320,9 @@ public class MainGUI extends JFrame {
 							panelSearch.add(book1);
 						}
 					});
-					
-					
 				}
-
-
 			}
 		});
-
 
 
 		JPanel panelAdmin = new JPanel();
@@ -371,8 +355,6 @@ public class MainGUI extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Password:");
 		lblNewLabel_2.setBounds(10, 77, 120, 26);
 		panelAdmin.add(lblNewLabel_2);
-
-
 
 		JPanel panelAddTrip = new JPanel();
 		panelAddTrip.setBounds(38, 36, 424, 646);
@@ -431,14 +413,14 @@ public class MainGUI extends JFrame {
 		JLabel lblDescription = new JLabel("Description:");
 		lblDescription.setBounds(10, 247, 120, 26);
 		panelAddTrip.add(lblDescription);
-		
+
 		JTextArea taDescription = new JTextArea();
 		taDescription.setLineWrap(true);
 		taDescription.setWrapStyleWord(true);			
 		JScrollPane scroll = new JScrollPane(taDescription);
-	    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	    scroll.setBounds(10, 270, 379, 223);
-	    panelAddTrip.add(scroll);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setBounds(10, 270, 379, 223);
+		panelAddTrip.add(scroll);
 
 		JLabel lblMaxPeople = new JLabel("Max people:");
 		lblMaxPeople.setBounds(10, 157, 120, 26);
@@ -461,7 +443,7 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Trip trip = new Trip(tfTripName.getText(), Date.valueOf(tfBeginDate.getText()), Date.valueOf(tfEndDate.getText()), taDescription.getText(), Integer.parseInt(tfMaxP.getText()), Integer.parseInt(tfMinP.getText()), tfLocation.getText(), Integer.parseInt(tfPrice.getText()), -1, 0 );
 				Admin.addTrip(trip);
-								
+
 				JOptionPane.showMessageDialog(panelBook,"Trip added");
 				try {
 					String searchParam[] = {"", "", "", "", ""};
@@ -469,7 +451,7 @@ public class MainGUI extends JFrame {
 				} catch (ParseException e1) {
 					// do nothing
 				}
-				
+
 				tfTripName.setText("");
 				tfBeginDate.setText(""); 
 				tfEndDate.setText("");
@@ -478,11 +460,10 @@ public class MainGUI extends JFrame {
 				tfMinP.setText("");
 				tfLocation.setText("");
 				tfPrice.setText("");
-				
+
 				showTrips(panelTrip, panelAdmin, panelSearch, panelAddTrip, tripList);
 				panelTrip.setVisible(true);
 				panelAddTrip.setVisible(false);
-
 			}
 		});
 		btnAddTrip.setBounds(137, 517, 117, 29);
@@ -501,16 +482,11 @@ public class MainGUI extends JFrame {
 					panelBook.setVisible(false);
 					panelAddTrip.setVisible(true);
 				}
-				else{
-				}
 			}
 		});
 
-
 		btnLogin.setBounds(128, 150, 168, 37);
 		panelAdmin.add(btnLogin);
-
-
 
 		panelBook = new JPanel();
 		panelBook.setBounds(38, 36, 424, 646);
@@ -570,18 +546,13 @@ public class MainGUI extends JFrame {
 				String tripString = "" + tripnr;
 				String[] searchP = {tripString, tfEmail.getText(), tfNrOfP.getText(), tfSSN.getText()};
 				String bookingResult = BookingController.bookTrip(searchP);
-				
+
 				JOptionPane.showMessageDialog(panelBook,bookingResult);
 				panelTrip.setVisible(true);
 			}
 		});
 		panelBook.add(btnSubmit);
 		panelBook.setVisible(false);
-
-		// Create new list of trips
-		/*JList tripsList = new JList();
-		tripsList.setBounds(376, 30, -334, 114);
-		panelTrip.add(tripsList);*/
 
 		// Search for the trip's info
 		String searchParam[] = {"", "", "", "", ""};
@@ -652,9 +623,7 @@ public class MainGUI extends JFrame {
 		toolBar.setBounds(38, 10, 424, 26);
 		contentPane.add(toolBar);
 
-
 		Admin.getIsLoggedIn();
-
 		Button btnTbAdmin = new Button("Admin");
 		btnTbAdmin.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnTbAdmin.addActionListener(new ActionListener() {
@@ -703,7 +672,6 @@ public class MainGUI extends JFrame {
 			}
 		});
 		toolBar.add(btnTbSearch);
-
 	}
 
 	public void showTrips(JPanel panelTrip, JPanel panelAdmin, JPanel panelSearch, JPanel panelAddTrip, Trip[] tripList) {
@@ -779,12 +747,11 @@ public class MainGUI extends JFrame {
 			textArea.setEditable(false);
 			textArea.setFocusable(false);
 			textArea.setBackground(new Color(240,240,240));
-			
-			JScrollPane scroll = new JScrollPane(textArea);
-		    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		    scroll.setBounds( 150, 140 + (i%3)*200, 250, 60);
-			panelTrip.add(scroll);
 
+			JScrollPane scroll = new JScrollPane(textArea);
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setBounds( 150, 140 + (i%3)*200, 250, 60);
+			panelTrip.add(scroll);
 
 			int j = i;
 			buttons[i] = new JButton("Book trip");
@@ -805,8 +772,6 @@ public class MainGUI extends JFrame {
 			});
 			buttons[i].setBounds(10, 170 + (i%3)*200, 100, 29);
 			panelTrip.add(buttons[i]);
-
 		}
-
 	}
 }
